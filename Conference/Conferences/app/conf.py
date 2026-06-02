@@ -1,26 +1,17 @@
-#database   sql server
-
-#服务器地址
-db_host= '127.0.0.1' #'139.196.146.45'
-#数据库账户、密码
-db_user='sa'
-db_password='Iotlab2019@217'
-# 数据库名
-db_database='test'
+import os
 
 
-#email verify
-mail_host = 'smtp.126.com'
-# 邮箱用户名
-mail_user = 'chadqiu'
-# 密码(部分邮箱为授权码)
-mail_password = 'MAERALLJYMJCOUHI'
-# 邮件发送方邮箱地址
-main_sender = 'chadqiu@126.com'
+# Database: SQL Server
+db_host = os.getenv('CONFERENCE_DB_HOST', '127.0.0.1')
+db_user = os.getenv('CONFERENCE_DB_USER', 'sa')
+db_password = os.getenv('CONFERENCE_DB_PASSWORD', '')
+db_database = os.getenv('CONFERENCE_DB_NAME', 'test')
+db_port = int(os.getenv('CONFERENCE_DB_PORT', '1433'))
+db_charset = os.getenv('CONFERENCE_DB_CHARSET', 'cp936')
 
 
-
-
-
-
-
+# Email verification
+mail_host = os.getenv('CONFERENCE_MAIL_HOST', 'smtp.126.com')
+mail_user = os.getenv('CONFERENCE_MAIL_USER', '')
+mail_password = os.getenv('CONFERENCE_MAIL_PASSWORD', '')
+main_sender = os.getenv('CONFERENCE_MAIL_SENDER', mail_user)

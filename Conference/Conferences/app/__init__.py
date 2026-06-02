@@ -1,28 +1,32 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+import os
 from urllib import parse
 
+from flask import Flask
+
+from . import conf
+
+
 app = Flask(__name__)
+app.config['SECRET_KEY'] = os.getenv('CONFERENCE_SECRET_KEY', 'dev-secret-change-me')
 
 DIALECT = 'mssql'
 DRIVER = 'pymssql'
-USERNAME = 'sa'
-PASSWORD = parse.quote_plus('Iotlab2019@217')
-HOST = '127.0.0.1' #'139.196.146.45'
-PORT = '1433'  #'22'
-DATABASE = 'test'
+USERNAME = conf.db_user
+PASSWORD = parse.quote_plus(conf.db_password)
+HOST = conf.db_host
+PORT = conf.db_port
+DATABASE = conf.db_database
 SQLALCHEMY_DATABASE_URI = '{}+{}://{}:{}@{}:{}/{}'.format(
-    DIALECT,DRIVER,USERNAME,PASSWORD,HOST,PORT,DATABASE
+    DIALECT, DRIVER, USERNAME, PASSWORD, HOST, PORT, DATABASE
 )
-
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
-db = SQLAlchemy(app)
+
 
 @app.context_processor
 def gettype():
-    type ={
+    model_types = {
         '1': '图像分类',
         '2': '语义分割',
         '3': '目标检测',
@@ -30,12 +34,11 @@ def gettype():
         '5': '语言建模',
         '6': '问答',
         '7': '机器翻译',
-        '8': '文本生成'
+        '8': '文本生成',
     }
-    return dict(model_type = type)
+    return dict(model_type=model_types)
+
 
 from .home import home as home_blueprint
-from .sqlConnect import Mssql
-
 
 app.register_blueprint(home_blueprint)

@@ -10,8 +10,8 @@
 
 	<title>用户密码修改</title>
 
-	<link rel="stylesheet" href="static/home/css/pwchange.css">
-	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='home/css/pwchange.css') }}">
+	<script src="{{ url_for('static', filename='home/js/jquery-1.8.2.min.js') }}"></script>
 
 </head>
 <script>
@@ -87,12 +87,10 @@ function sendcode(){
 				
 };
 			   
-//MAERALLJYMJCOUHI
-
 </script>
 <body >
 
-	<div class="login-banner" style="background: url(../home/images/login_banner.jpg);" ></div><br />
+	<div class="login-banner" style="background: url({{ url_for('static', filename='home/images/banner.jpg') }});" ></div><br />
 	<div class="title-box" >用户密码修改</div>
 	<div class="login-box">
 

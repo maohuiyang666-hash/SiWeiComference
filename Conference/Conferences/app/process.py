@@ -1,216 +1,271 @@
-import pymssql  # 引入pymssql模块
-from datetime import datetime
-import smtplib,random
+from datetime import date, datetime
 from email.mime.text import MIMEText
+from html import escape
+from types import SimpleNamespace
+import smtplib
+
+from werkzeug.security import check_password_hash, generate_password_hash
+
 from app import conf
 
 
+USER_COLUMNS = {
+    'username',
+    'password',
+    'email',
+    'name',
+    'phone',
+    'member_type',
+    'birthday',
+    'organization',
+    'title',
+    'paid',
+}
+
+MODEL_COLUMNS = {
+    'model_id',
+    'model_name',
+    'model_author',
+    'dataset_id',
+    'paper_name',
+    'model_url',
+    'paper_url',
+    'model_time',
+    'model_class',
+}
+
+
+def get_connection():
+    try:
+        import pymssql
+    except ImportError as exc:
+        raise RuntimeError(
+            'Missing dependency: pymssql. Install project requirements before using database pages.'
+        ) from exc
+
+    return pymssql.connect(
+        server=conf.db_host,
+        user=conf.db_user,
+        password=conf.db_password,
+        database=conf.db_database,
+        port=conf.db_port,
+        charset=conf.db_charset,
+    )
+
+
+def row_to_namespace(columns, row):
+    return SimpleNamespace(**dict(zip(columns, row)))
+
+
+def normalize_date(value):
+    if isinstance(value, (date, datetime)):
+        return value.strftime('%Y-%m-%d')
+    return value
+
 
 class DataProcess:
-    def __init__(self):
-
-        self.mydb = pymssql.connect(conf.db_host, conf.db_user, conf.db_password, conf.db_database)  # 服务器名,账户,密码,数据库名
-        if not self.mydb:
-            print("连接失败!")
-        self.mycursor = self.mydb.cursor()  # 创建一个游标对象,python里的sql语句都要通过cursor来执行
-
-    def reset(self):
-        '''重新连接数据库，当更改数据库报错时需执行此函数'''
-        self.mycursor.close()  # 关闭游标
-        self.mydb.close()  # 关闭连接
-        self.mydb = pymssql.connect(conf.db_host, conf.db_user, conf.db_password, conf.db_database)
-        self.mycursor = self.mydb.cursor()
-        print('have reseted database')
-
-    def loginCheck(self,data,key='username'):
-        sql="SELECT * FROM users where {} ='{}' and password='{}'".format(key,data['username'],data['password'])
-        self.mycursor.execute(str(sql))
-        result = self.mycursor.fetchone()
-        return result!=None
-
-    def existCheck(self,data):
-        sql = "SELECT * FROM users where "
-        keys=list(data)
-        for i in range(len(keys)):
-            if i>0:
-                sql+=" or "
-            k=keys[i]
-            sql+="{} = '{}'".format(k,data[k])
-        print(sql)
-        self.mycursor.execute(str(sql))
-        result = self.mycursor.fetchone()
-        return result == None
-
-    # def infoShow(self,data,columns,name_transfor):
-    #     sql="SELECT {} FROM users where username='{}'".format(','.join(columns),data['username'])
-    #     print(sql)
-    #     self.mycursor.execute(str(sql))
-    #     result = self.mycursor.fetchone()
-    #     dic={}
-    #     for k,v in zip(columns,result):
-    #         if v !=None:
-    #             dic[k]=v
-    #         else:
-    #             dic[k]='无'
-    #     s='<div class="signup-form" ><label for="{}">{}:</label>' \
-    #       '<input type="text" id="{}"  class="email-mobile" value="{}" disabled="disabled" ></div>\n'
-    #     result=''
-    #     for k in dic:
-    #         result+=s.format(k,name_transfor[k],k,dic[k])
-    #     print(dic)
-    #     return result
-
-    def infoChange(self,data,columns,name_transfor,verifys):
-        sql="SELECT {} FROM users where username='{}'".format(','.join(columns),data['username'])
-        print(sql)
-        self.mycursor.execute(str(sql))
-        result = self.mycursor.fetchone()
-        dic={}
-        for k,v in zip(columns,result):
-            if v !=None:
-                dic[k]=v
-                if k=='birthday':
-                    print(str(type(v))=="<class 'datetime.date'>")
-                    dic[k]=v.strftime('%Y-%m-%d')
-                    print(dic[k])
-            else:
-                dic[k]='无'
-
-        s1 = '<div class="signup-form" ><label for="{}">{}:</label>' \
-            '<input type="text" id="{}"  class="email-mobile" value="{}" disabled=“disabled” ></div>\n'
-
-        s2 = '<div class="signup-form" ><label for="{}" >{}:</label>' \
-             '<input type="text" id="{}"  class="email-mobile" value="{}" >' \
-             '<a class="in_box" onclick="{}">确认修改</a></div>\n'
-
-        s3 = '<div class="signup-form" ><label for="{}" >{}:</label>' \
-             '<input type="text" id="{}"  class="email-mobile" value="{}" >' \
-             '<a class="in_box" onclick="{}">修改</a></div>\n'
-
-        result = ''
-        for k in columns:
-            if columns[k]==0:
-                result += s1.format(k, name_transfor[k], k, dic[k])
-            elif columns[k]==1:
-                result += s2.format(k, name_transfor[k], k, dic[k],verifys[k])
-            else:
-                result += s3.format(k, name_transfor[k], k, dic[k],verifys[k])
-        print(dic)
-        return result
-
-    def register(self,data):
+    def _execute_one(self, sql, params=None):
+        conn = get_connection()
         try:
-            sql = "INSERT INTO users (username, password,email) VALUES (%s, %s,%s)"
-            val = ("{}".format(data['username']), "{}".format(data['password']),"{}".format(data['email']))
-            print(sql,val)
-            self.mycursor.execute(sql, val)
-            self.mydb.commit()
+            cursor = conn.cursor()
+            cursor.execute(sql, params or ())
+            return cursor.fetchone()
+        finally:
+            conn.close()
+
+    def _execute_write(self, sql, params=None):
+        conn = get_connection()
+        try:
+            cursor = conn.cursor()
+            cursor.execute(sql, params or ())
+            conn.commit()
+        finally:
+            conn.close()
+
+    def loginCheck(self, data, key='username'):
+        if key not in {'username', 'email'}:
+            return False
+        sql = f'SELECT username, password FROM users WHERE {key} = %s'
+        row = self._execute_one(sql, (data.get('username'),))
+        if not row:
+            return False
+        stored_password = row[1] or ''
+        password = data.get('password') or ''
+        if stored_password.startswith(('pbkdf2:', 'scrypt:')):
+            return check_password_hash(stored_password, password)
+        return stored_password == password
+
+    def existCheck(self, data):
+        clauses = []
+        params = []
+        for key, value in data.items():
+            if key not in USER_COLUMNS:
+                continue
+            clauses.append(f'{key} = %s')
+            params.append(value)
+        if not clauses:
             return True
-        except:
-            self.reset()
+        sql = 'SELECT TOP 1 username FROM users WHERE ' + ' OR '.join(clauses)
+        return self._execute_one(sql, tuple(params)) is None
+
+    def infoChange(self, data, columns, name_transfor, verifys):
+        selected_columns = [column for column in columns if column in USER_COLUMNS]
+        sql = 'SELECT {} FROM users WHERE username = %s'.format(','.join(selected_columns))
+        result = self._execute_one(sql, (data['username'],))
+        if not result:
+            return ''
+
+        values = {}
+        for key, value in zip(selected_columns, result):
+            values[key] = normalize_date(value) if value is not None else '无'
+
+        readonly_template = (
+            '<div class="signup-form"><label for="{0}">{1}:</label>'
+            '<input type="text" id="{0}" class="email-mobile" value="{2}" disabled="disabled"></div>\n'
+        )
+        editable_template = (
+            '<div class="signup-form"><label for="{0}">{1}:</label>'
+            '<input type="text" id="{0}" class="email-mobile" value="{2}">'
+            '<a class="in_box" onclick="{3}">{4}</a></div>\n'
+        )
+
+        html = []
+        for key in selected_columns:
+            label = escape(name_transfor.get(key, key))
+            value = escape(str(values.get(key, '')))
+            if columns[key] == 0:
+                html.append(readonly_template.format(key, label, value))
+            else:
+                action_text = '确认修改' if columns[key] == 1 else '修改'
+                html.append(editable_template.format(key, label, value, verifys[key], action_text))
+        return ''.join(html)
+
+    def register(self, data):
+        password_hash = generate_password_hash(data['password'])
+        sql = 'INSERT INTO users (username, password, email) VALUES (%s, %s, %s)'
+        try:
+            self._execute_write(sql, (data['username'], password_hash, data['email']))
+            return True
+        except Exception:
             return False
 
-    def updateInfo(self,data,key='username'):
-        value=data[key]
+    def updateInfo(self, data, key='username'):
+        if key not in {'username', 'email'} or key not in data:
+            return False
+        lookup_value = data.pop(key)
         try:
-            data.pop(key)
-            for k in data:
-                assert len(data[k])>0
-                sql = "UPDATE  users SET {} = '{}' where {} = '{}'".format(k,data[k],key,value)
-                print(sql)
-                self.mycursor.execute(sql)
-                self.mydb.commit()
+            for column, value in data.items():
+                if column not in USER_COLUMNS or value is None or len(str(value)) == 0:
+                    return False
+                if column == 'password':
+                    value = generate_password_hash(value)
+                sql = f'UPDATE users SET {column} = %s WHERE {key} = %s'
+                self._execute_write(sql, (value, lookup_value))
             return True
-        except:
-            self.reset()
+        except Exception:
             return False
 
-    def getInfo(self,username,columns,key='email'):
-        sql = "SELECT {} FROM users where {} = '{}'".format(','.join(columns),key, username)
-        print(sql)
-        self.mycursor.execute(str(sql))
-        result = self.mycursor.fetchone()
+    def getInfo(self, username, columns, key='email'):
+        if key not in {'username', 'email'}:
+            return {}
+        selected_columns = [column for column in columns if column in USER_COLUMNS]
+        sql = 'SELECT {} FROM users WHERE {} = %s'.format(','.join(selected_columns), key)
+        result = self._execute_one(sql, (username,))
+        if not result:
+            return {}
+        return {
+            column: normalize_date(value) if value is not None else '无'
+            for column, value in zip(selected_columns, result)
+        }
 
-        dic={}
-        print(result)
-        for k, v in zip(columns, result):
-            if v == None:
-                v = '无'
-            elif str(type(v)) == "<class 'datetime.date'>":
-                v = v.strftime('%Y-%m-%d')
-            dic[k]=v
+    def sendEmail(self, receivers, msg):
+        if not all([conf.mail_host, conf.mail_user, conf.mail_password, conf.main_sender]):
+            return False
 
-        return dic
-
-    def sendEmail(self,receivers,msg):
-        mail_host = conf.mail_host
-        # 163用户名
-        mail_user = conf.mail_user
-        # 密码(部分邮箱为授权码)
-        mail_pass = conf.mail_password
-        # 邮件发送方邮箱地址
-        sender = conf.main_sender
-        # 邮件接受方邮箱地址，注意需要[]包裹，这意味着你可以写多个邮件地址群发
-        # receivers = ['2405309874@qq.com']
-
-        # 设置email信息
-        # 邮件内容设置
         message = MIMEText(msg, 'plain', 'utf-8')
-        # 邮件主题
         message['Subject'] = '验证码'
-        # 发送方信息
-        message['From'] = sender
-        # 接受方信息
+        message['From'] = conf.main_sender
         message['To'] = receivers[0]
-        # 登录并发送邮件
         try:
-            smtpObj = smtplib.SMTP_SSL(mail_host, 465)
-            # 连接到服务器
-            #smtpObj.connect(mail_host, 465)
-            # 登录到服务器
-            smtpObj.login(mail_user, mail_pass)
-            # 发送
-            smtpObj.sendmail(
-                sender, receivers, message.as_string())
-            # 退出
+            smtpObj = smtplib.SMTP_SSL(conf.mail_host, 465)
+            smtpObj.login(conf.mail_user, conf.mail_password)
+            smtpObj.sendmail(conf.main_sender, receivers, message.as_string())
             smtpObj.quit()
             return True
-        except smtplib.SMTPException as e:
-            print('email send error: ', e)  # 打印错误
+        except smtplib.SMTPException:
             return False
 
 
-def test():
-    import pymssql  # 引入pymssql模块
-    connect = pymssql.connect(conf.db_host, conf.db_user, conf.db_password, conf.db_database)  # 服务器名,账户,密码,数据库名
-    if connect:
-        print("连接成功!")
-    cursor = connect.cursor()  # 创建一个游标对象,python里的sql语句都要通过cursor来执行
-    sql="select * from users where username = '464' "
-    cursor.execute(sql)  # 执行sql语句
-    row = cursor.fetchone()
-    # row = cursor.fetchall()
-    print(row)
+class ModelRepository:
+    columns = [
+        'model_id',
+        'model_name',
+        'model_author',
+        'dataset_id',
+        'paper_name',
+        'model_url',
+        'paper_url',
+        'model_time',
+        'model_class',
+    ]
 
-    # connect.commit()  # 提交
-    cursor.close()  # 关闭游标
-    connect.close()  # 关闭连接
+    def _fetchall(self, sql, params=None):
+        conn = get_connection()
+        try:
+            cursor = conn.cursor()
+            cursor.execute(sql, params or ())
+            return cursor.fetchall()
+        finally:
+            conn.close()
 
+    def _fetchone(self, sql, params=None):
+        conn = get_connection()
+        try:
+            cursor = conn.cursor()
+            cursor.execute(sql, params or ())
+            return cursor.fetchone()
+        finally:
+            conn.close()
 
+    def _rows(self, rows):
+        return [row_to_namespace(self.columns, row) for row in rows]
 
-if __name__=='__main__':
+    def find(self, model_class, start, limit):
+        sql = (
+            f'SELECT * FROM models WHERE model_class = %s '
+            f'ORDER BY model_id OFFSET {int(start)} ROWS FETCH NEXT {int(limit)} ROWS ONLY'
+        )
+        return self._rows(self._fetchall(sql, (model_class,)))
 
-    test()
+    def find_count(self, model_class):
+        row = self._fetchone('SELECT COUNT(*) FROM models WHERE model_class = %s', (model_class,))
+        return row[0] if row else 0
 
-    # model=DataProcess()
+    def find_model_detail(self, model_id):
+        row = self._fetchone('SELECT * FROM models WHERE model_id = %s', (model_id,))
+        return row_to_namespace(self.columns, row) if row else None
 
+    def find_limit(self, keyword1, keyword2, start, limit):
+        where, params = self._search_where(keyword1, keyword2)
+        sql = (
+            f'SELECT * FROM models {where} '
+            f'ORDER BY model_id OFFSET {int(start)} ROWS FETCH NEXT {int(limit)} ROWS ONLY'
+        )
+        return self._rows(self._fetchall(sql, params))
 
-    print('end')
+    def find_limit_count(self, keyword1, keyword2):
+        where, params = self._search_where(keyword1, keyword2)
+        row = self._fetchone(f'SELECT COUNT(*) FROM models {where}', params)
+        return row[0] if row else 0
 
-#MAERALLJYMJCOUHI
-
-
-
-
-
-
+    def _search_where(self, keyword1, keyword2):
+        clauses = []
+        params = []
+        for keyword in [keyword1, keyword2]:
+            if keyword:
+                clauses.append('(model_name LIKE %s OR model_author LIKE %s OR paper_name LIKE %s)')
+                pattern = f'%{keyword}%'
+                params.extend([pattern, pattern, pattern])
+        if not clauses:
+            return '', tuple()
+        return 'WHERE ' + ' AND '.join(clauses), tuple(params)

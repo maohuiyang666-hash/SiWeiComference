@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local runtime configuration
+.env
+.env.*
+!.env.example
+
+# Logs and runtime output
+*.log
+instance/
+
+# User uploads and generated files
+Conference/Conferences/app/home/uploads/*
+!Conference/Conferences/app/home/uploads/.gitkeep

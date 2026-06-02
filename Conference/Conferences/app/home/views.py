@@ -11,13 +11,19 @@ from math import ceil
 from app import process
 import random,time,re
 import os
-from pypinyin import lazy_pinyin
+try:
+    from pypinyin import lazy_pinyin
+except ImportError:
+    def lazy_pinyin(value):
+        return [value]
 
 
 import chardet
 import math
 
 model1=process.DataProcess()
+model=process.ModelRepository
+ALLOWED_UPLOAD_EXTENSIONS = {'pdf', 'doc', 'docx'}
 
 
 
@@ -26,6 +32,10 @@ def change_filename(filename):
     fileinfo = filename.split('.')  # 取出上传的文件名的后缀(.MP4)
     filename = datetime.datetime.now().strftime('%Y%m%d%H%M%S') + str(uuid.uuid4().hex) + '.' + fileinfo[-1]
     return filename
+
+
+def allowed_upload(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_UPLOAD_EXTENSIONS
 
 
 
@@ -109,6 +119,8 @@ def conference_detail():
         sql_conference = f'select * from conference where con_id ={int(con_id)}'
         con = db.getItems(sql_conference)
         # print(con)
+        if con == []:
+            return "页面不存在"
         if con != []:
             title = con[0][1]
             if con[0][2] == None:
@@ -124,10 +136,14 @@ def conference_detail():
             print(f)
             basepath = os.path.dirname(__file__)
             if f:
+                if not allowed_upload(f.filename):
+                    flash('仅支持 PDF、DOC、DOCX 文件', 'danger')
+                    return redirect(url_for('home.conference_detail') + '?id=' + str(con_id))
                 filename = secure_filename(''.join(lazy_pinyin(f.filename)))
                 filename = change_filename(filename)
                 print(filename)
                 uploadpath = os.path.join(basepath, 'uploads/', filename)
+                os.makedirs(os.path.dirname(uploadpath), exist_ok=True)
                 print(uploadpath)
                 f.save(uploadpath)
                 flash('文件上传成功!', 'success')
@@ -149,6 +165,8 @@ def conference_procedure():
         sql_conference = f'select * from conference where con_id ={int(con_id)}'
         con = db.getItems(sql_conference)
         # print(con)
+        if con == []:
+            return "页面不存在"
         if con != []:
             title = con[0][1]
             if con[0][5] == None:
@@ -253,9 +271,11 @@ def userget():
 #跨域
 @app.after_request
 def cors(environ):
-    environ.headers['Access-Control-Allow-Origin']='*'
-    environ.headers['Access-Control-Allow-Method']='*'
-    environ.headers['Access-Control-Allow-Headers']='x-requested-with,content-type'
+    cors_origin = os.getenv('CONFERENCE_CORS_ORIGIN')
+    if cors_origin:
+        environ.headers['Access-Control-Allow-Origin']=cors_origin
+        environ.headers['Access-Control-Allow-Method']='GET,POST,OPTIONS'
+        environ.headers['Access-Control-Allow-Headers']='x-requested-with,content-type'
     return environ
 
 
@@ -274,8 +294,8 @@ def login():
     if model1.loginCheck(data):
         session["username"]=data.get('username')
         return 'success'
-    elif model.loginCheck(data,key='email'):
-        session["username"] = model.getInfo(data['username'],['username'],key='email')['username']
+    elif model1.loginCheck(data,key='email'):
+        session["username"] = model1.getInfo(data['username'],['username'],key='email')['username']
         return session["username"]
         # return redirect(url_for('home.index',username=session["username"]))
     else:
@@ -301,7 +321,7 @@ def register():
         if k=='password':continue
         if data[k]==None:
             return '{}不能为空'.format(k)
-        if not model.existCheck({k:data[k]}):
+        if not model1.existCheck({k:data[k]}):
             return '{}已被注册'.format(k)
     if model1.register(data):
         return 'success'
@@ -389,7 +409,7 @@ def verifycode():
         model1.sendEmail([request.values.get("email")],'你的验证码是'+code+'，请不要告诉别人哦')
         return 'success'
     else:
-        if session['verifycode']==request.values.get("code"):
+        if session.get('verifycode')==request.values.get("code"):
             data={'email':request.values.get("email"),
                   'password':request.values.get("password")}
             print(data)
@@ -408,8 +428,12 @@ def upload():
         f = request.files.get('fileupload')
         basepath = os.path.dirname(__file__)
         if f:
+            if not allowed_upload(f.filename):
+                flash('仅支持 PDF、DOC、DOCX 文件', 'danger')
+                return redirect(url_for('home.upload'))
             filename = secure_filename(f.filename)
             uploadpath = os.path.join(basepath, 'uploads/', filename)
+            os.makedirs(os.path.dirname(uploadpath), exist_ok=True)
             print(uploadpath)
             f.save(uploadpath)
             flash('文件上传成功!', 'success')

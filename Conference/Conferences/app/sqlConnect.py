@@ -1,36 +1,39 @@
-#-- coding: utf-8 --
-import pymssql
+# -- coding: utf-8 --
 from app import conf
 
-HOST = conf.db_host
-PORT = 1433 #22
-USERNAME = conf.db_user
-PASSWORD = conf.db_password
-DB = conf.db_database
 
 class Mssql(object):
     def __init__(self):
+        self.conn = None
+        self.cursor = None
+        self.connect()
+
+    def connect(self):
         try:
-            self.conn = pymssql.connect(
-                server=HOST,
-                user=USERNAME,
-                password=PASSWORD,
-                database=DB,
-                port=PORT,
-                charset='cp936'
-            )
-            self.cursor = self.conn.cursor()  # 游标对象
-            print("连接数据库成功")
+            import pymssql
+        except ImportError as exc:
+            raise RuntimeError(
+                'Missing dependency: pymssql. Install project requirements before using database pages.'
+            ) from exc
 
-        except Exception as e:
+        self.conn = pymssql.connect(
+            server=conf.db_host,
+            user=conf.db_user,
+            password=conf.db_password,
+            database=conf.db_database,
+            port=conf.db_port,
+            charset=conf.db_charset,
+        )
+        self.cursor = self.conn.cursor()
 
-            print("连接失败")
-            print(e)
+    def getItems(self, sql=None, params=None):
+        if not sql:
+            return []
+        self.cursor.execute(sql, params or ())
+        return self.cursor.fetchall()
 
-    def getItems(self, sql = None):
-        print(sql)
-        # sql = u'select top 5 * from notice order by notice_time desc'
-        self.cursor.execute(sql.encode('cp936'))
-        items = self.cursor.fetchall()
-        # print(items)
-        return items
+    def close(self):
+        if self.cursor:
+            self.cursor.close()
+        if self.conn:
+            self.conn.close()

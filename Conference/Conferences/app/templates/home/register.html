@@ -11,14 +11,11 @@
 
 	<title>注册</title>
 
-	<link rel="stylesheet" href="static/home/css/pwchange.css">
-	<link rel="stylesheet" href="static/home/css/login_register_style.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='home/css/pwchange.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='home/css/login_register_style.css') }}">
 
-	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
-<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+	<script src="{{ url_for('static', filename='home/js/jquery-1.8.2.min.js') }}"></script>
 
-
-	<script src="static/js/jquery.js"></script>
 
 </head>
 <script>
@@ -122,7 +119,7 @@ function sendcode(){
 </script>
 <body onload="createCode()">
 
-	<div class="login-banner" style="background: url(static/home/images/login_banner.jpg);" ></div><br />
+	<div class="login-banner" style="background: url({{ url_for('static', filename='home/images/banner.jpg') }});" ></div><br />
 	<div class="title-box" >用户注册</div>
 	<div class="login-box">
 
