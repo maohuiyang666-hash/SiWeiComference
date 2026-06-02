@@ -1,0 +1,32 @@
+{% include './home/TopBox.html' %}
+
+<div class="clear"></div>
+<!--<div class="banner">-->
+<!--  <div class="b-img">-->
+<!--      <img src="images/banner.jpg" width="100%"/>-->
+<!--      <img src="images/banner.jpg" width="100%" />-->
+<!--  </div>-->
+<!--  <div class="clear"></div>-->
+<!--  <div class="b-list"> </div>-->
+<!--</div>-->
+<div class="clear"></div>
+<div class="mainWarp">
+
+  <div class="mainRight">
+    <div class="brandnavbox">
+      <div class="con">当前位置：首页》学会公告</div>
+    </div>
+    <div class="detailbox">
+
+      <h1>{{ title }}</h1>
+      <div>
+       {% for p in content %}
+          <p>{{p}}</p>
+       {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="clear"></div>
+{% include './home/footBox.html' %}

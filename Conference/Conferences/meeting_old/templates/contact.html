@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="static/css/contact.css">
+    <script type="text/javascript" src="static/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="application/javascript" src="static/js/common.js"></script>
+    <script type="text/javascript" src="static/js/jquery.tools.min.js"></script>
+    <!--引用百度地图API-->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=TP1I4bsoxvKXUYnugSn4PoK3"></script>
+
+</head>
+<body>
+<!--头部-->
+<header id="header">
+    <!--头部的顶部-->
+    <div class="headtp">
+        <div class="container">
+            <div class="fl">
+                <a href="#" onclick="AddFavorite(window.location,document.title)">收藏首页</a>
+                <a href="#">免费注册</a>
+                <a href="#" target="_blank">会员登录</a>
+            </div>
+            <!--搜索框-->
+            <div class="fr">
+                <div class="search">
+                    <form>
+                        <input class="iptxt" type="text" onblur="if(this.value=='')this.value='搜索关键词...';" onfocus="if(this.value=='搜索关键词...')this.value='';" value="搜索关键词..." title="搜索" id="mykey" style="color: rgb(198, 198, 198);">
+                        <a class="subtn" type="button" value="" id="mysub" href="javascript:void(0);"></a>
+                        <script type="text/javascript">
+                            $("#mysub").click(function () {
+                                if ($.trim($("#mykey").val()) == "搜索") {
+                                    alert("请输入关键字！");
+                                    return;
+                                }
+                                location.href = "/aspx/pageabout.aspx?type=search&keyword=" + escape($("#mykey").val()) + "";
+                            });
+                            function AddFavorite(sURL, sTitle) {
+                                sURL = encodeURI(sURL);
+                                try{
+                                    window.external.addFavorite(sURL, sTitle);
+                                }catch(e) {
+                                    try{
+                                        window.sidebar.addPanel(sTitle, sURL, "");
+                                    }catch (e) {
+                                        alert("加入收藏失败，请使用Ctrl+D进行添加,或手动在浏览器里进行设置.");
+                                    }
+                                }
+                            }
+                        </script>
+                    </form>
+                </div>
+
+
+            </div>
+            <!--搜索框end-->
+        </div>
+    </div>
+</header>
+<!--导航-->
+<nav class="nav">
+<div class="container">
+<div class="navbar container">
+    <img src="static/images/logo.jpg" height="51px" align="left">
+    <ul>
+        <li><a href="{{ url_for('index') }}">网站首页</a></li>
+        <li id="m_about"><a href="{{ url_for('about2021') }}">关于协会</a>
+            <div class="navbox abtnav">
+                <div class="navlist">
+                    <span class="navsj"></span>
+                    <div class="navl fl">
+                        <h2>关于协会</h2>
+                        <dl>
+                            <dd class="bd1" onmousemove="showbyid('rig1')"><a href="{{ url_for('about2021') }}">协会简介</a></dd>
+                            <dd class="bd1" onmousemove="showbyid('rig2')"><a href="#">协会章程</a></dd>
+                            <dd class="bd1" onmousemove="showbyid('rig3')"><a href="#">组织结构</a></dd>
+                            <dd class="bd1" ><a href="#">入会须知</a></dd>
+                        </dl>
+                    </div>
+                    <div class="navc fl" id="rig1" style="display:none">
+                        <h3>协会简介</h3>
+                        <p>上海思维科学研究会</p>
+                        <a class="more" href="/about/0_1/">更多》</a>
+                    </div>
+
+                    <div class="navc fl" id="rig2" style="display:none">
+                        <h3>协会章程</h3>
+                        <p></p>
+                        <a class="more" href="/about/0_2/">更多》</a>
+                    </div>
+
+                    <div class="navc fl" id="rig3" style="display:none">
+                        <h3>组织结构</h3>
+                        <!-- <p><img class="navczjg" src="images/zzjg.png" alt="组织结构图" /> -->
+                            <a class="more" href="#">更多》</a>
+                        </p>
+                    </div>
+
+                    <script>
+
+                        function showbyid(bid) {
+                            document.getElementById("rig1").style.display = "none";
+                            document.getElementById("rig2").style.display = "none";
+                            document.getElementById("rig3").style.display = "none";
+                            document.getElementById(bid).style.display = "block";
+                        }
+
+
+                    </script>
+                </div>
+            </div>
+        </li>
+        <li id="m_news"><a href="{{ url_for('information') }}">信息中心</a></li>
+        <li><a href="{{ url_for('contact') }}">联系我们</a></li>
+    </ul>
+
+</div>
+</div>
+</nav>
+
+<!--主体部分-->
+<div class="container clearfix">
+    <!--左侧导航栏-->
+    <div class="ltbox fl bd1">
+        <div class="ltmenu">
+            <div class="tit">
+                <h2>联系我们</h2>
+            </div>
+            <ul class="menulist clearfix">
+                <li class="current"><a href="#"><i><img src="static/images/red_icon.png"></i>通讯地址</a></li>
+                <li><a href=""><i><img src="static/images/black_icon.png"></i>意见反馈</a></li>
+                <li><a href=""><i><img src="static/images/black_icon.png"></i>资料下载</a></li>
+            </ul>
+        </div>
+        <!--QQ咨询-->
+
+        <div class="ltqq">
+            <div class="tit">
+                <h2>在线咨询</h2>
+            </div>
+            <div class="ltqbox clearfix">
+                <img class="ltqimg" src="static/images/catimg.jpg" alt="在线咨询">
+                <div class="ltqsend">
+                    <p>协会咨询:<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2210866755&amp;site=qq&amp;menu=yes" rel="nofollow"><img border="0" src="http://wpa.qq.com/pa?p=2:2210866755:51" alt="协会咨询" title="协会咨询"></a></p>
+                    <p>网站咨询:<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=2210866755&amp;site=qq&amp;menu=yes" rel="nofollow"><img border="0" src="http://wpa.qq.com/pa?p=2:2210866755:51" alt="网站咨询" title="网站咨询"></a></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--右侧内容栏-->
+    <div class="rtbox fr">
+        <div class="rtit">
+            <div class="srtit">
+                <h2 class="fl"><i><img src="static/images/line_red.png"></i>通讯地址&nbsp;|&nbsp; Website Building</h2>
+                <p class="fr">当前位置：<a href="#">首页</a> &gt; <a href="#">联系我们</a> &gt;<a href="#">通讯地址</a> </p>
+            </div>
+        </div>
+        <!--内容框-->
+        <div class="rtcon abtbg">
+            <div class="rtcontain aboutbox">
+                <!--百度地图容器-->
+                <div style="width:915px;height:550px;border:#ccc solid 1px;font-size:12px" id="map"></div>
+                <script type="text/javascript">
+                    //创建和初始化地图函数：
+                    function initMap(){
+                        createMap();//创建地图
+                        setMapEvent();//设置地图事件
+                        addMapControl();//向地图添加控件
+                        addMapOverlay();//向地图添加覆盖物
+                    }
+                    function createMap(){
+                        map = new BMap.Map("map");
+                        map.centerAndZoom(new BMap.Point(121.916168,30.880815),15);
+                    }
+                    function setMapEvent(){
+                        map.enableScrollWheelZoom();
+                        map.enableKeyboard();
+                        map.enableDragging();
+                        map.enableDoubleClickZoom()
+                    }
+                    function addClickHandler(target,window){
+                        target.addEventListener("click",function(){
+                            target.openInfoWindow(window);
+                        });
+                    }
+                    function addMapOverlay(){
+                    }
+                    //向地图添加控件
+                    function addMapControl(){
+                        var scaleControl = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+                        scaleControl.setUnit(BMAP_UNIT_IMPERIAL);
+                        map.addControl(scaleControl);
+                        var navControl = new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_LEFT,type:BMAP_NAVIGATION_CONTROL_LARGE});
+                        map.addControl(navControl);
+                        var overviewControl = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:true});
+                        map.addControl(overviewControl);
+                    }
+                    var map;
+                    initMap();
+                </script>
+                <!--文字地址-->
+                <div class="add">
+                    <ul style="padding-bottom:30px;font-size:14px;line-height:30px;">
+                        <li><span>单       位：上海市思维科学研究会</span></li>
+                        <li><span>地       址：上海市上海海事大学</span></li>
+                        <li><span>邮政编码: </font></span></li>
+                        <li><span>办公电话:</span></li>
+                        <li><span>传     真: </span></li>
+                        <li><span>电子邮箱: </span></li>
+                    </ul>
+                </div>
+                <!--文字地址end-->
+            </div>
+         </div>
+        <!--内容框end-->
+        </div>
+</div>
+<!--底部-->
+<footer id="footer">
+    <div class="fttool">
+        <div class="container">
+        </div>
+    </div>
+    <div class="ftbt container">
+        <div class="ftbt_left fl">
+            <p>上海思维科学研究会  版权所有</p>
+            <p>地址：上海市浦东新区</p>
+            <p>联系方式：123456</p>
+        </div>
+        <div class="ftbt_right fr">
+            <p>客服QQ：2295956241</p>
+            <p>邮箱：123456@126.com</p>
+        </div>
+        <div class="middle fr"><img src="static/images/weixin.jpg" width="90" height="90"> </div>
+    </div>
+    <div class="copyright container">
+        Copyright © 2021 womengda.cn All rights reserved.&nbsp;&nbsp;&nbsp;沪ICP备15048364号-1&nbsp;&nbsp;&nbsp;技术支持：上海思维科学研究会
+    </div>
+</footer>
+
+
+</body>
+</html>

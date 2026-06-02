@@ -1,0 +1,215 @@
+﻿@charset "utf-8";
+/* CSS Document 更多：http://www.bootstrapmb.com */
+*{ margin:0; padding:0}
+ul li{ list-style:none}
+img{ border:0; max-width:100%}
+a{ text-decoration:none; color:#333}
+.clear{ clear:both}
+body{ font-family:"微软雅黑"; width:100%; min-width:1100px;color:#2a2a2a;font-size: 12px;}
+.ccsl{ display:block;overflow:hidden; white-space:nowrap;text-overflow:ellipsis;}
+p{text-align:justify}
+.l{ float:left}
+.r{ float:right}
+
+.main{ width:1080px; margin:0 auto;}
+
+.topBox{width:100%; min-width:1100px; border-bottom:1px solid #dbd5d5; height:30px; line-height:30px; overflow:hidden}
+.topBox .l{ max-width:500px;}
+.topBox .r{max-width:500px; text-align:right}
+.topBox p{ padding:0 10px}
+
+.headerBox{width:1080px; height:90px; margin:0 auto; margin-top:10px; margin-bottom:15px; border-bottom:2px solid #00008b}
+.headerBox .logo{ float:left; max-width:360px;}
+.headerBox .logo img{ height:90px; max-width:360px;}
+.headerBox .nav{ float:right; max-width:720px;}
+.headerBox .nav ul{height:90px; line-height:90px;}
+.headerBox .nav ul li{ float:left; width:90px; position:relative; height:90px;}
+.headerBox .nav ul li .navOne{ color:#2a2a2a; font-size:16px; text-align:center}
+.headerBox .nav ul li .navOne a{}
+.headerBox .nav ul li .navTwo{ position:absolute; top:90px; left:0; width:90px; z-index:99999; display:none}
+.headerBox .nav ul li .navTwo a{ display:block; color:#fff; text-align:center; height:40px; line-height:40px; font-size:12px; border-top:1px solid #fff; background:#008bcc}
+.headerBox .nav ul li:hover .navOne a{ color:#008bcc}
+
+/* 轮播图 */
+.banner{ width:50%; min-width:1100px; /*height:400px;*/ overflow:hidden; position:relative;font-size:0; margin:0 auto;}
+.b-img{ /*height:400px;*/  position:absolute; left:0; top:0;}
+.b-img img{ display:block; /*height:400px;*/ float:left;}
+.b-list{ height:20px; /*padding-top:380px;*/ margin:0 auto;position:relative;z-index:1;}
+.b-list span{ display:block;cursor:pointer; width:10px; height:10px; border-radius:50%; background:#fff; float:left; margin:0 5px; _margin:0 3px;}
+.b-list .spcss{ background:#d8241d}
+
+
+.contitbox{ width:100%; height:40px; line-height:40px; border-bottom:2px solid #008bcc; margin-bottom:15px; margin-top:15px}
+.contitbox p{ float:left; max-width:150px; font-size:18px; font-weight:bold; color:#008bcc}
+.contitbox a{ float:right; font-size:12px; color:#8e8e8e}
+.contitbox a:hover{ text-decoration:underline}
+
+.part1{ width:1080px; margin:0 auto; overflow:hidden;}
+/*.part1_1{ width:346px; float:left;}*/
+.part1_1{ width:519px !important; float:left;}
+
+.silder_list{width:519px !important;}
+
+.silder {height:200px; overflow: hidden;text-align: center;margin: 0 auto;position:relative;float:left;width:519px !important;}
+/*.silder .silder_list {height:200px; overflow:hidden;position: relative;width:}
+.silder .silder_list a{position:absolute; top:0;left:0;}*/
+.silder .silder_list a,.silder .silder_list img{display:inline-block;float:left;width:519px !important;}
+.silder .silder_page{height:38px;text-align:right; margin:0 auto;right:1px; overflow:hidden;position:absolute; bottom:35px;}
+.silder .silder_page li{width:16px; font-size:12px; float:left; height:16px;line-height:16px;margin:15px 10px 0 0; background:#F1F1F1;display:inline-block;text-align:center;color:#000;}
+.silder .silder_page li.current{background:#008bcc;color:#fff;}
+.silder_desc{color:#fff;loat:left;line-height:35px;height:35px;width:100%;overflow:hidden;position:absolute;left:0;bottom:0;text-align:left;text-indent:10px; background:rgb(92, 91, 91); font-size:14px;display:block;overflow:hidden; white-space:nowrap;text-overflow:ellipsis;}
+.silder .silder_page li:hover{cursor:pointer;}
+
+.part1_2{ width:519px; float:left; margin-left:21px;}
+.newsOne{ padding:0 5px; overflow:hidden}
+.newsOne .tit{ color:#008bcc; font-size:17px; line-height:30px}
+.newsOne .sub{ color:#000; font-size:14px; line-height:30px; max-height:120px; overflow:hidden}
+.newsOne .more{ color:#fff; font-size:14px; background:#008bcc; width:104px; height:24px; line-height:24px; display:block; text-align:center; float:right; margin-top:10px; margin-bottom:15px}
+
+ul.newsList{ overflow:hidden; border-top:1px dashed #999; padding-top:10px}
+ul.newsList li{ height:30px; line-height:30px; background:url(../images/icon.png) left center no-repeat;}
+ul.newsList li a{ float:left; max-width:275px; color:#000; font-size:14px; padding-left:13px}
+ul.newsList li span{ float:right; color:#8e8e8e; font-size:12px;}
+ul.newsList li a:hover{ color:#cc0000}
+
+.part1_3{ float:right; width:346px}
+.typebox{ overflow:hidden}
+.typebox ul{ overflow:hidden; height:35px;}
+.typebox ul li{ width:33.3%; height:35px; line-height:35px; color:#000; float:left}
+.typebox ul li p{ text-align:center; font-size:14px; cursor:pointer}
+.typebox ul li.active{ background:#cc0000; color:#fff}
+
+.fromBox{ overflow:hidden}
+.fromBox .inputbox{ height:36px; line-height:36px; margin-top:18px;}
+.fromBox .inputbox label{ width:80px; float:left; font-size:14px; color:#000;height:36px; line-height:36px;}
+.fromBox .inputbox label span{ color:#cc0000; padding-right:8px}
+.fromBox .inputbox select{ width:255px; float:right;height:36px; line-height:36px; border:1px solid #e0e0e0; box-sizing: border-box; font-size:14px; color:#999;padding-left:10px}
+.fromBox .inputbox input{ width:255px; float:right; height:36px; line-height:36px; border:1px solid #e0e0e0; box-sizing: border-box;font-size:14px; color:#999; padding-left:10px}
+.fromBox .inputbox input.yzm{ float:right; width:126px}
+.fromBox .inputbox .yzmimg{ float:right; width:126px; height:36px; margin-left:3px}
+
+.fromBox .btn{ height:36px; line-height:36px; margin-top:18px;}
+.fromBox .btn input{ font-size:14px; color:#999; background:#f7f7f7; text-align:center; border:1px solid #e0e0e0; border-radius:4px; height:36px; line-height:36px;box-sizing: border-box;width:190px; display:block; margin:0 auto; letter-spacing:1px; outline:none; cursor:pointer}
+
+
+.adBox{ width:1080px; margin:0 auto; overflow:hidden; margin-top:20px}
+.adBox img{ display:block; width:100%;}
+
+
+.part2{width:1080px; margin:0 auto; overflow:hidden; margin-top:20px}
+.part2_1{ float:left; width:1080px !important;}
+.part2_1 .conbox{ overflow:hidden}
+.part2_1 .conbox img{ width:420px; height:230px; float:left}
+.part2_1 .conbox .con{ float:right; width:620px;height:230px; overflow:hidden; line-height:30px; color:#000; font-size:14px;}
+.part2_1 .conbox .con p{ text-indent:2em}
+
+.part2_2{ float:right; width:346px;}
+.part2_2 ul.newsList{ overflow:hidden; padding:0; border:0}
+
+
+.part3{width:1080px; margin:0 auto; overflow:hidden; margin-top:20px}
+.part3_1{width:346px; float:left;}
+.part3_2{width:346px; float:left; margin-left:21px;}
+.part3_3{ float:right;width:346px;}
+
+.p3img{width:346px; height:115px; overflow:hidden}
+.p3img img{ display:block; width:346px; height:115px;}
+.part3 ul.newsList{ overflow:hidden; padding-top:3px; border:0}
+
+.part4{width:1080px; margin:0 auto; overflow:hidden; margin-top:20px}
+.part4 ul{ overflow:hidden}
+.part4 ul li{ float:left; width:200px; margin-right:20px;}
+.part4 ul li img{ width:200px; height:130px;}
+.part4 ul li:nth-child(5n){ margin-right:0}
+
+
+.linkBox{width:1080px; margin:0 auto; overflow:hidden; margin-top:10px}
+.linkBox .titbox{ height:40px; border-bottom:1px dashed #999; width:100%}
+.linkBox .titbox p{height:40px; line-height:40px; color:#cc0000; font-size:18px;}
+.linkBox .titbox p span{ font-size:14px; padding-left:5px}
+
+.linkcon{ overflow:hidden; padding:15px 0}
+.linkcon a{ color:#999; font-size:14px; padding:0 10px; line-height:25px; display:inline-block}
+
+
+.footerBox{width:100%; min-width:1100px; background:#2a2a2a; background-size:100% 100%; padding:30px 0 15px; overflow:hidden;}
+.footerBox .ftItem{ width:115px; margin:0 10px; float:left; text-align:center}
+.footerBox .ftItem p{ font-size:18px; color:#fff; text-align:center; line-height:35px;}
+.footerBox .ftItem ul{ overflow:hidden}
+.footerBox .ftItem ul li{ line-height:24px;}
+.footerBox .ftItem ul li a{ text-align:center; color:#fff; font-size:14px;}
+
+
+.footer{width:100%; min-width:1100px; background:#2a2a2a; overflow:hidden}
+.footer .con{ height:30px; line-height:30px; color:#fff; font-size:12px; text-align:center}
+
+
+.mainWarp{ width:1080px; margin:0 auto; overflow:hidden; padding-top:45px;}
+.mainLeft{ width:237px; float:left; overflow:hidden; padding-bottom:100px}
+.mainLeft .titbox{ height:38px; border-left:5px solid #cc0000; line-height:38px;}
+.mainLeft .titbox p{ color:#2a2a2a; font-size:18px; padding-left:8px}
+.mainLeft ul{ padding-top:15px; overflow:hidden}
+.mainLeft ul li{ height:40px; line-height:40px; border-bottom:1px dashed #000; padding:0 25px}
+.mainLeft ul li a{ color:#2a2a2a; font-size:14px; background:url(../images/icon2.png) left center no-repeat; padding-left:15px}
+.mainLeft ul li:hover a,.mainLeft ul li.active a{ color:#cc0000}
+
+.mainRight{ width:826px; float:right; overflow:hidden; padding-bottom:100px}
+.brandnavbox{height:38px; line-height:38px; overflow:hidden;}
+.brandnavbox .con{ font-size:12px; color:#8e8e8e; text-align:right}
+
+
+ul.listul{ overflow:hidden}
+ul.listul li{ height:40px; line-height:40px; width:100%; overflow:hidden}
+ul.listul li a{ float:left; max-width:650px;font-size:14px; color:#2a2a2a}
+ul.listul li span{ float:right; color:#8e8e8e;font-size:14px;}
+ul.listul li:hover{ border-bottom:1px dashed #cc0000;border-top:1px dashed #cc0000;box-sizing: border-box;}
+ul.listul li:hover a{ color:#cc0000; }
+ul.listul li:hover span{color:#cc0000; }
+
+
+.detailbox{ padding-left:10px; overflow:hidden}
+.detailbox h1{ text-align:center; font-size:25px; line-height:30px;padding: 10px;}
+.detailbox p{ text-indent:2em; font-size:20px; color:#000; line-height:30px}
+.detailbox .tit{ color:#000; font-size:14px; line-height:30px; text-align:center}
+.detailbox .date{ color:#999; font-size:12px; text-align:center;}
+.detailbox .img{ padding-top:40px; padding-bottom:30px;}
+.detailbox .img img{ margin:0 auto; display:block}
+.detailbox a{ display:block; width:190px; height:36px; line-height:36px; background:#f7f7f7; border:1px solid #e0e0e0;box-sizing: border-box; border-radius:4px; font-size:14px; color:#999; text-align:center; margin:0 auto}
+.detailbox .xqimg{padding-top:20px; padding-bottom:20px;}
+.detailbox .xqimg img{margin:0 auto; display:block; max-width:780px;}
+
+.formBox{ width:390px; margin:0 auto; overflow:hidden; padding-top:20px}
+.formBox h3{ text-align:center; color:#000; font-size:18px;text-align:center; font-weight:normal}
+.formBox .inputbox{ height:36px; line-height:36px; margin-top:36px;}
+.formBox .inputbox label{ width:80px; float:left; font-size:14px; color:#000;height:36px; line-height:36px;}
+.formBox .inputbox label span{ color:#cc0000; padding-right:8px}
+.formBox .inputbox input{ width:305px; float:right; height:36px; line-height:36px; border:1px solid #e0e0e0; box-sizing: border-box;font-size:14px; color:#999; padding-left:10px}
+.formBox .inputbox input.yzm{ float:right; width:172px}
+.formBox .inputbox .yzmimg{ float:right; width:123px; height:36px; margin-left:10px}
+.formBox .inputbox .btn1{ width:100px; height:36px; line-height:36px; border:1px solid #e0e0e0; box-sizing: border-box;font-size:14px; color:#999; text-align:center; background:#fff; float:left;border-radius:4px; cursor:pointer; outline:none; letter-spacing:1px; padding:0}
+.formBox .inputbox .btn2{ float:right; background:#f7f7f7; width:160px; height:36px; line-height:36px;border:1px solid #e0e0e0; box-sizing: border-box; border-radius:4px; outline:none;cursor:pointer; letter-spacing:1px; padding:0}
+
+
+ul.piclistul{ overflow:hidden}
+ul.piclistul li{ float:left;margin:10px 20px 10px 10px;padding:10px 10px 0; width:230px; overflow:hidden; border:1px solid #ddd}
+ul.piclistul li img{ width:230px; height:160px;}
+ul.piclistul li p{ text-align:center; height:50px; line-height:50px; color:#2a2a2a; font-size:14px;}
+ul.piclistul li:nth-child(3n){ margin-right:0}
+
+
+.pagebox{ text-align:center; padding-top:30px}
+.pagebox a{ display:inline-block; padding:10px}
+.pagebox a:hover{ color:#cc0000}
+
+
+
+.event{position: absolute;top: 50%;left: 50%;margin: -250px 0 0 -200px;z-index: 9999;}
+.tcbox{width: 400px;height: 500px;background: #ffffff;background: rgba(255,255,255,.95);filter: alpha(opacity=95);box-shadow: 0 0 30px black;border-radius: 10px;}
+.title{float: left;width: 400px;height: 60px;line-height: 60px;border-bottom: 1px solid #cccccc;position: relative; margin-bottom:25px}
+.t_txt{float: left;margin-left: 20px;font-size: 16px;color: green;	position: relative;}
+.del{float: right;margin-right: 20px;position: relative;color: #000000;	cursor: pointer;}
+
+.tcbox .tit{ text-align:center; padding:0 20px;color: #000;font-size: 14px;line-height: 30px;}
+.tcbox .date{ text-align:center; padding:0 20px;color: #999;font-size: 12px; padding-bottom:15px}
+.tcbox .img{ padding:0 20px;}
+.tcbox .img img{ width:100%}

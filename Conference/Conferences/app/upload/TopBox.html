@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="renderer" content="webkit"/>
+<meta name="force-rendering" content="webkit"/>
+<title></title>
+<link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='home/css/style.css') }}" />
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/jquery-1.8.2.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/banner.js') }}"></script>
+<script src="{{ url_for('static',filename='home/js/jquery.img_silder.js') }}"></script>
+<script>
+$(function(){
+    $('#silder').imgSilder({
+		s_width:346, //容器宽度
+		s_height:360, //容器高度
+		is_showTit:true, // 是否显示图片标题 false :不显示，true :显示
+		s_times:3000, //设置滚动时间
+	});
+});
+
+function deleteTc(){
+	var del=document.getElementById("tcbox_box");
+	del.style.display="none";
+}
+function showBox(){
+	var show=document.getElementById("tcbox_box");
+	show.style.display="block";
+}
+
+function myFunction() {
+  alert("文件上传成功");
+}
+</script>
+</head>
+
+<body>
+<div class="topBox">
+  <div class="l"><p class="ccsl">欢迎来到上海思维科学协会官网</p></div>
+  <div class="r"><p class="ccsl">联系电话：123-4567-8910</p></div>
+</div>
+<div class="clear"></div>
+<div class="headerBox">
+  <div class="logo">
+    <a href="index.html"><img src="{{ url_for('static',filename='home/images/logo.jpg') }}" /></a>
+  </div>
+  <div class="nav">
+    <ul>
+      <li>
+        <div class="navOne"><a href="index.html">协会首页</a></div>
+      </li>
+      <li>
+        <div class="navOne"><a href="list.html">协会概况</a></div>
+        <div class="navTwo">
+          <a href="list.html">协会简介</a> 
+          <a href="list.html">协会章程</a>
+          <a href="list.html">领导寄语</a>
+          <a href="list.html">协会领导</a>
+          <a href="list.html">组织架构</a>
+          <a href="list.html">联系我们</a>
+        </div>
+      </li>
+      <li>
+        <div class="navOne"><a href="list.html">协会动态</a></div>
+      </li>
+      <li>
+        <div class="navOne"><a href="list.html">会员服务</a></div>
+        <div class="navTwo">
+          <a href="list.html">会员服务</a> 
+          <a href="list.html">入会流程</a>
+          <a href="list.html">入会申请</a>
+          <a href="list.html">常务理事单位</a>
+          <a href="list.html">理事单位</a>
+          <a href="list.html">会员单位</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,243 @@
+{% include './home/model_header.html' %}
+		<!-- Start Job Listing Area -->
+		<section class="job-listing-area ptb-100">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8">
+						<form id="model_search" class="search-job" method="post">
+							<div class="row">
+								<div class="col-lg-5">
+									<div class="form-group">
+										<input type="text" class="form-control" name="keyword1" placeholder="模型名字">
+									</div>
+								</div>
+
+								<div class="col-lg-4">
+									<div class="form-group">
+										<input type="text" class="form-control" name="keyword2" placeholder="论文名称">
+									</div>
+								</div>
+
+								<div class="col-lg-3">
+									<button type="button" onclick="doSearch()" class="default-btn">
+										<i class="bx bx-search"></i>
+										搜索
+									</button>
+								</div>
+							</div>
+						</form>
+						{% for model, dataset in rows %}
+						<div class="hot-jobs-list">
+							<div class="row align-items-center">
+								<div class="col-lg-2">
+									<a href="{{ url_for('home.model_detail', model_id = model.model_id) }}" class="hot-jobs-img">
+										<img src="{{ url_for('static',filename='home/module_assets/images/hot-jobs/hot-jobs-1.png') }}" alt="Image">
+									</a>
+								</div>
+
+								<div class="col-lg-6">
+									<div class="hot-jobs-content">
+										<h3><a href="{{ url_for('home.model_detail', model_id = model.model_id) }}">{{ model.model_name }}</a></h3>
+										<span class="sub-title">类别：{{ model_type[model.model_class | string] }}</span>
+										<ul>
+											<li><span>数据集:</span> {{ dataset.dataset_name }}</li>
+											<li><span>论  文: </span>{{ model.paper_name }}</li>
+											<li><span>发布时间: </span>{{ model.model_time }}</li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="col-lg-4">
+									<div class="hot-jobs-btn">
+										<a href="{{ url_for('home.model_detail', model_id = model.model_id) }}" class="default-btn">查看详情</a>
+										<p><span>发布日期: </span>2022年1月18日</p>
+									</div>
+								</div>
+							</div>
+							<span class="featured">NEW</span>
+						</div>
+						{% endfor %}
+
+						<div class="row">
+							<div class="col-lg-12 col-md-12">
+								<div class="pagination-area">
+									{% if page !=1 %}
+									<a href="/model_search/page/{{page-1}}?keyword1={{keyword1}}&keyword2={{keyword2}}" class="page-numbers">
+										<i class="flaticon-left-arrow"></i>
+									</a>
+									{% endif %}
+									{% for i in range(num) %}
+									<!-- <span class="page-numbers current" aria-current="page">1</span> -->
+									<a href="/model_search/page/{{i+1}}?keyword1={{keyword1}}&keyword2={{keyword2}}" class="page-numbers">{{ i+1 }}</a>
+									{% endfor %}
+									{% if page != num %}
+									<a href="/model_search/page/{{page+1}}?keyword1={{keyword1}}&keyword2={{keyword2}}" class="next page-numbers">
+										<i class="flaticon-right-arrow"></i>
+									</a>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4">
+						<div class="job-listing-sidebar">
+							<div class="job-listing-widget">
+								<ul class="accordion-widget">
+									<li class="accordion-item">
+										<a class="accordion-widget-title active" href="javascript:void(0)">
+											<h3>模型网络</h3>
+											<i class="bx bx-chevron-down"></i>
+										</a>
+		
+										<ul class="accordion-widget-content show">
+											<li>
+												<label class="single-check">
+													全部
+													<input type="radio" checked="checked" name="radio-1">
+													<span class="checkmark"></span>
+												</label>
+											</li>
+											<li>
+												<label class="single-check">
+													transformers
+													<input type="radio" checked="checked" name="radio-1">
+													<span class="checkmark"></span>
+													<span class="count">(8954)</span>
+												</label>
+											</li>
+											<li>
+												<label class="single-check">
+													ResNet
+													<input type="radio" checked="checked" name="radio-1">
+													<span class="checkmark"></span>
+													<span class="count">(354)</span>
+												</label>
+											</li>
+											<li>
+												<label class="single-check">
+													CNN
+													<input type="radio" checked="checked" name="radio-1">
+													<span class="checkmark"></span>
+													<span class="count">(83)</span>
+												</label>
+											</li>
+											<li>
+												<label class="single-check">
+													RNN
+													<input type="radio" checked="checked" name="radio-1">
+													<span class="checkmark"></span>
+													<span class="count">(1291)</span>
+												</label>
+											</li>
+											<li>
+												<label class="single-check">
+													LSTM
+													<input type="radio" checked="checked" name="radio-1">
+													<span class="checkmark"></span>
+													<span class="count">(954)</span>
+												</label>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+
+							<div class="job-listing-widget">
+								<ul class="accordion-widget">
+									<li class="accordion-item">
+										<a class="accordion-widget-title active" href="javascript:void(0)">
+											<h3>发布日期</h3>
+											<i class="bx bx-chevron-down"></i>
+										</a>
+		
+										<ul class="accordion-widget-content show">
+											<li>
+												<label class="single-check">
+													全部
+													<input type="radio" checked="checked" name="radio-2">
+													<span class="checkmark"></span>
+												</label>
+											</li>
+											<li>
+												<label class="single-check">
+													2022
+													<input type="radio" checked="checked" name="radio-2">
+													<span class="checkmark"></span>
+												</label>
+											</li>
+											<li>
+												<label class="single-check">
+													2021
+													<input type="radio" checked="checked" name="radio-2">
+													<span class="checkmark"></span>
+												</label>
+											</li>
+											<li>
+												<label class="single-check">
+													2020
+													<input type="radio" checked="checked" name="radio-2">
+													<span class="checkmark"></span>
+												</label>
+											</li>
+											<li>
+												<label class="single-check">
+													2019
+													<input type="radio" checked="checked" name="radio-2">
+													<span class="checkmark"></span>
+												</label>
+											</li>
+											<li>
+												<label class="single-check">
+													2018及之前
+													<input type="radio" checked="checked" name="radio-2">
+													<span class="checkmark"></span>
+												</label>
+											</li>
+											<li>
+												<form class="price-range-content">
+													<div class="price-range-bar" id="range-slider"></div>
+													<div class="price-range-filter">
+														<div class="price-range-filter-item">
+															<input type="text" id="price-amount" readonly>
+														</div>
+													</div>
+												</form>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Job Listing Area -->
+		{% include './home/model_footer.html' %}
+		<script type="text/javascript">
+			function doSearch()
+			{
+				var keyword1 = $.trim($('input[name="keyword1"]').val());
+				var keyword2 = $.trim($('input[name="keyword2"]').val());
+				if(keyword1.length == 0 && keyword2.length == 0)
+				{
+					alert('请输入关键字');
+					$('input[name="keyword1"]').focus();
+					return false;
+				}
+				if(keyword1.length > 10 || keyword2.length >10)
+				{
+					alert('您输入的关键字过长，请重新输入');
+					return false;
+				}
+				if(keyword1.indexOf('%') >= 0 || keyword2.indexOf('%') >= 0)
+				{
+					alert('您输入的关键词不能包含特殊字符，请重新输入');
+					return false;
+				}
+				location.href = '/model_search/page/1?keyword1='+keyword1+'&keyword2='+keyword2;
+			}
+		</script>
+    </body>
+</html>

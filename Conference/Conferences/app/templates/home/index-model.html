@@ -1,0 +1,187 @@
+{% include './home/model_header.html' %}
+		<!-- Start Banner Area -->
+		<section class="banner-area banner-area-three ptb-100">
+			<div class="d-table">
+				<div class="d-table-cell">
+					<div class="container">
+						<div class="banner-content">
+							<h1>Browse State-of-the-Art</h1>
+							<p>Search Over 10,000 models!</p>
+
+							<form class="search-job">
+								<div class="row">
+									<div class="col-lg-5">
+										<div class="form-group">
+											<input type="text" class="form-control" name="keyword1" placeholder="模型名称">
+										</div>
+									</div>
+
+									<div class="col-lg-4">
+										<div class="form-group">
+											<input type="text" class="form-control" name="keyword2" placeholder="论文名称">
+										</div>
+									</div>
+
+									<div class="col-lg-3">
+										<button type="button" onclick="doSearch()" class="default-btn">
+											Search Models
+										</button>
+									</div>
+								</div>
+							</form>
+
+							<div class="total-job-count">
+								<div class="row">
+									<div class="col-lg-4 col-sm-6 col-md-4">
+										<div class="job-count">
+											<h3><span>模型数量: </span>9,492</h3>
+										</div>
+									</div>
+
+									<div class="col-lg-4 col-sm-6 col-md-4">
+										<div class="job-count">
+											<h3><span>论文数量: </span>12,5582</h3>
+										</div>
+									</div>
+
+									<div class="col-lg-4 col-sm-6 col-md-4 offset-sm-3 offset-md-0 offset-lg-0">
+										<div class="job-count">
+											<h3><span>数据集: </span>6,436</h3>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Banner Area -->
+
+		<!-- Start Working Area -->
+		<section class="working-area working-area-two pt-100 pb-70">
+			<div class="container">
+				<div class="section-title green-title">
+					<h2>计算机视觉</h2>
+				</div>
+
+				<div class="row">
+					
+					<div class="col-lg-3 col-sm-6">
+						<div class="single-working">
+							<i class="flaticon-find-my-friend"></i>
+							<a href="/class_detail/1-1">
+								<h3>图像分类</h3>
+							</a>
+							<p>图像分类是一项基本任务，它试图将整个图像理解为一个整体。目标是通过将图像分配给特定标签来对图像进行分类。</p>
+						</div>
+					</div>
+					
+
+					<div class="col-lg-3 col-sm-6">
+						<div class="single-working">
+							<i class="flaticon-company"></i>
+							<a href="/class_detail/1-2">
+								<h3>语义分割</h3>
+							</a>
+							<p>语义分割或图像分割是将属于同一对象类的图像部分聚集在一起的任务。它是像素级预测的一种形式，因为图像中的每个像素都根据类别进行分类。</p>
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-sm-6">
+						<div class="single-working">
+							<i class="flaticon-salary"></i>
+							<a href="/class_detail/1-3">
+								<h3>目标检测</h3>
+							</a>
+							<p>目标检测是检测图像中某一类对象实例的任务。最先进的方法可以分为两种主要类型：一阶段方法和二阶段方法。</p>
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-sm-6">
+						<div class="single-working">
+							<i class="flaticon-submit"></i>
+							<a href="/class_detail/1-4">
+								<h3>图像生成</h3>
+							</a>
+							<p>图像生成（合成）是从现有数据集中生成新图像的任务。分为条件生成和无条件生成。</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Working Area -->
+
+		<!-- Start Live Jobs Area -->
+		<section class="live-jobs-area-two pb-70">
+			<div class="container">
+				<div class="section-title green-title">
+					<h2>自然语言处理</h2>
+				</div>
+				<div class="row">
+					
+					<div class="col-lg-3 col-sm-6">
+						<div class="single-working">
+							<i class="flaticon-find-my-friend"></i>
+							<a href="#">
+							<h3>语言建模</h3>
+							</a>
+							<p>语言建模是预测文档中下一个单词或字符的任务。该技术可用于训练语言模型，该模型可进一步应用于广泛的自然语言任务，如文本生成、文本分类和问答。</p>
+						</div>
+					</div>
+					
+
+					<div class="col-lg-3 col-sm-6">
+						<div class="single-working">
+							<i class="flaticon-company"></i>
+							<h3>问答</h3>
+							<p>问答是回答问题（通常是阅读理解问题）的任务，但在提出无法根据所提供的上下文回答的问题时弃权。</p>
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-sm-6">
+						<div class="single-working">
+							<i class="flaticon-salary"></i>
+							<h3>机器翻译</h3>
+							<p>机器翻译是将源语言中的句子翻译成不同目标语言的任务。</p>
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-sm-6">
+						<div class="single-working">
+							<i class="flaticon-submit"></i>
+							<h3>文本生成</h3>
+							<p>文本生成是生成文本的任务，其目标是与人类书写的文本无法区分。这项任务在文献中更正式地称为“自然语言生成”。</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Live Jobs Area -->
+		{% include './home/model_footer.html' %}
+		<script type="text/javascript">
+			function doSearch()
+			{
+				var keyword1 = $.trim($('input[name="keyword1"]').val());
+				var keyword2 = $.trim($('input[name="keyword2"]').val());
+				if(keyword1.length == 0 && keyword2.length == 0)
+				{
+					alert('请输入关键字');
+					$('input[name="keyword1"]').focus();
+					return false;
+				}
+				if(keyword1.length > 10 || keyword2.length >10)
+				{
+					alert('您输入的关键字过长，请重新输入');
+					return false;
+				}
+				if(keyword1.indexOf('%') >= 0 || keyword2.indexOf('%') >= 0)
+				{
+					alert('您输入的关键词不能包含特殊字符，请重新输入');
+					return false;
+				}
+				location.href = '/model_search/page/1?keyword1='+keyword1+'&keyword2='+keyword2;
+			}
+		</script>
+    </body>
+</html>

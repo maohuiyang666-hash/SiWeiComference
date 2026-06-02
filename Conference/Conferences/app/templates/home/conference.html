@@ -1,0 +1,50 @@
+{% include './home/TopBox.html' %}
+
+<div class="clear"></div>
+<!--<div class="banner">-->
+<!--  <div class="b-img">-->
+<!--      <img src="{{ url_for('static',filename='home/images/1.png') }}"  height="100%"/>-->
+<!--&lt;!&ndash;      <img src="{{ url_for('static',filename='home/images/2.png') }}" width="50%" height="50%"/>&ndash;&gt;-->
+<!--  </div>-->
+<!--  <div class="clear"></div>-->
+<!--  <div class="b-list"> </div>-->
+<!--</div>-->
+<div class="clear"></div>
+<div class="mainWarp">
+  <div class="mainLeft">
+    <div class="titbox">
+      <p class="ccsl">学会会议</p>
+    </div>
+    <ul>
+      <li class="active"><a href="{{ url_for('home.conference', page = 1) }}" class="ccsl">近期会议</a></li>
+<!--      <li><a href="list.html" class="ccsl">协会章程</a></li>-->
+<!--      <li><a href="list.html" class="ccsl">领导寄语</a></li>-->
+<!--      <li><a href="list.html" class="ccsl">协会领导</a></li>-->
+<!--      <li><a href="list.html" class="ccsl">组织架构</a></li>-->
+<!--      <li><a href="list.html" class="ccsl">联系我们</a></li>-->
+    </ul>
+  </div>
+  <div class="mainRight">
+    <div class="brandnavbox">
+      <div class="con">当前位置：首页》学会会议</div>
+    </div>
+    <ul class="listul">
+      {% for c in con %}
+      <li>
+          <a href="{{url_for('home.conference_detail')}}?id={{c[0]}}" class="ccsl">{{ c[1] }}</a>
+          <span>{{ c[4] }}</span>
+        </li>
+
+      {% endfor %}
+    </ul>
+    <div class="pagebox">
+      {% for v in range(1, page_all+1) %}
+      <a href="{{url_for('home.conference', page = v)}}">{{ v }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="clear"></div>
+{% include './home/footBox.html' %}
+

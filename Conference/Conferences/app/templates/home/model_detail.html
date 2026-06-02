@@ -1,0 +1,148 @@
+{% include './home/model_header.html' %}
+		<!-- Start Page Title Area -->
+		<div class="page-title-area">
+			<div class="container">
+				<div class="page-title-content">
+					<h2>{{ rows.model_name }}</h2>
+					<ul>
+						<li>
+							<a href="index.html">
+								图像分类 
+							</a>
+						</li>
+						<li class="active">{{ rows.model_name }}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<!-- End Page Title Area -->
+
+		<!-- Start Job Details Area -->
+		<section class="job-details-area ptb-100">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-8">
+						<div class="hot-jobs-list">
+							<div class="row align-items-center">
+								<div class="col-lg-2">
+									<div class="hot-jobs-img">
+										<img src="{{ url_for('static',filename='home/module_assets/images/hot-jobs/hot-jobs-1.png') }}" alt="Image">
+									</div>
+								</div>
+
+								<div class="col-lg-6">
+									<div class="hot-jobs-content">
+										<h3>{{ rows.paper_name }}</h3>
+										<span class="sub-title">{{ rows.model_author }}</span>
+										<ul>
+											<li><span>发表日期</span> {{ rows.model_time }}</li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="col-lg-4">
+									<div class="hot-jobs-btn">
+										<a href="{{ rows.paper_url }}" target="_blank" class="default-btn">查看原文</a>
+										<p><span>发布日期: </span>2022年1月18日</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="job-details-content">
+							<h3>Abstract</h3>
+							<p>We trained a large, deep convolutional neural network to classify the 1.3 million high-resolution images in the LSVRC-2010 ImageNet training set into the 1000 different classes. On the test data, we achieved top-1 and top-5 error rates of 39.7\% and 18.9\% which is considerably better than the previous state-of-the-art results. The neural network, which has 60 million parameters and 500,000 neurons, consists of five convolutional layers, some of which are followed by max-pooling layers, and two globally connected layers with a final 1000-way softmax. To make training faster, we used non-saturating neurons and a very efficient GPU implementation of convolutional nets. To reduce overfitting in the globally connected layers we employed a new regularization method that proved to be very effective.</p>
+
+							<h4>实验结果:</h4>
+
+							<!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A nisi aspernatur modi doloribus dolorem quidem! Neque placeat numquam vel magni ipsam, similique eligendi sunt laudantium, nihil alias soluta eos in Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et nam eveniet quasi.</p> -->
+
+							<ul>
+								<li>datasets：flower_data</li>
+								<li>batch_size: 156</li>
+								<li>epoch: 30</li>
+								<li></li>
+							</ul>
+							<div id="main" style="width: 600px;height:400px;"></div>
+						</div>
+						
+					</div>
+					
+					
+
+					<div class="col-lg-4">
+						<div class="job-details-sidebar">
+							<div class="job-widget">
+								<h3>下载</h3>
+
+								<ul class="social-icon">
+									<li>
+										<a href="{{ rows.paper_url }}" target="_blank" title="下载原文">
+											<svg t="1648362727609" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3522" width="48" height="48"><path d="M234.666667 469.333333h85.333333a85.333333 85.333333 0 0 1 85.333333 85.333334v21.333333a85.333333 85.333333 0 0 1-85.333333 85.333333h-42.666667v85.333334h-42.666666V469.333333z m448 170.666667v106.666667h-42.666667V469.333333h149.333333v42.666667h-106.666666v85.333333h85.333333v42.666667h-85.333333zM618.666667 85.333333l277.333333 277.333334v490.645333A85.205333 85.205333 0 0 1 810.88 938.666667H213.12A85.333333 85.333333 0 0 1 128 853.333333V170.666667c0-47.125333 38.165333-85.333333 85.12-85.333334H618.666667z m-0.448 277.504h217.493333L618.666667 145.664l-0.448 217.173333zM853.333333 853.333333V405.333333H618.496c-23.466667 0-42.496-19.072-42.496-42.496V128H213.12C189.738667 128 170.666667 147.093333 170.666667 170.666667v682.666666c0 23.530667 19.093333 42.666667 42.453333 42.666667h597.76c23.424 0 42.453333-19.093333 42.453333-42.688zM426.666667 469.333333h64a106.666667 106.666667 0 0 1 106.666666 106.666667v64a106.666667 106.666667 0 0 1-106.666666 106.666667h-64V469.333333z m42.666666 234.666667h21.333334a64 64 0 0 0 64-64v-64a64 64 0 0 0-64-64h-21.333334v192z m-192-192v106.666667h42.666667a42.666667 42.666667 0 0 0 42.666667-42.666667v-21.333333a42.666667 42.666667 0 0 0-42.666667-42.666667h-42.666667z" fill="#3D3D3D" p-id="3523"></path></svg>										
+										</a>
+									</li>
+									<li>
+										<a href="#" target="_blank" title="下载代码">
+											<svg t="1648362855502" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2459" width="48" height="48"><path d="M511.6 76.3C264.3 76.2 64 276.4 64 523.5 64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9 26.4 39.1 77.9 32.5 104 26 5.7-23.5 17.9-44.5 34.7-60.8-140.6-25.2-199.2-111-199.2-213 0-49.5 16.3-95 48.3-131.7-20.4-60.5 1.9-112.3 4.9-120 58.1-5.2 118.5 41.6 123.2 45.3 33-8.9 70.7-13.6 112.9-13.6 42.4 0 80.2 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.3-43.9 2.9 7.7 24.7 58.3 5.5 118 32.4 36.8 48.9 82.7 48.9 132.3 0 102.2-59 188.1-200 212.9 23.5 23.2 38.1 55.4 38.1 91v112.5c0.8 9 0 17.9 15 17.9 177.1-59.7 304.6-227 304.6-424.1 0-247.2-200.4-447.3-447.5-447.3z" p-id="2460"></path></svg>										
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Job Details Area -->
+
+		{% include './home/model_footer.html' %}
+		<!-- 引入d3.js -->
+		<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+		<!-- 引入画图js -->
+		<script src="{{ url_for('static',filename='home/module_assets/js/echarts.js') }}"></script>
+		<script type="text/javascript">
+			d3.csv("{{ url_for('static',filename='home/module_assets/files/flower_experiment.csv') }}",function(csvdata){ 
+			  	return csvdata;
+ 			}).then(function(data) {
+				 epoch = new Array();
+				 acc = new Array();
+				//  console.log(epoch);
+				//  console.log(data[1]['Step']);
+				 for( var i=0; i<data.length; i++ ){ 
+					epoch.push(parseInt(data[i].Step) + 1); 
+					acc.push(data[i].Value); 
+					// console.log(epoch); 
+					}
+				// 基于准备好的dom，初始化echarts实例
+				var myChart = echarts.init(document.getElementById('main'));
+		
+				// 指定图表的配置项和数据
+				var option = {
+					title: {
+					text: 'AlexNet实验结果'
+					},
+					tooltip: {},
+					legend: {
+					data: ['acc']
+					},
+					xAxis: {
+					name: 'epoch',
+					data: epoch
+					},
+					yAxis: {},
+					series: [
+					{
+						name: 'acc',
+						type: 'line',
+						data: acc
+					}
+					]
+				};
+
+				// 使用刚指定的配置项和数据显示图表。
+				myChart.setOption(option);
+			 });
+			
+		  </script>
+    </body>
+</html>

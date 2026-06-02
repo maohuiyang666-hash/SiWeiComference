@@ -1,0 +1,38 @@
+{% include './home/TopBox.html' %}
+
+<div class="clear"></div>
+<div class="banner">
+  <div class="b-img">
+      <img src="{{ url_for('static',filename='home/images/2021.PNG') }}" width="100%"/>
+  </div>
+  <div class="clear"></div>
+  <div class="b-list"> </div>
+</div>
+<div class="clear"></div>
+<div class="mainWarp">
+  <div class="mainLeft">
+    <div class="titbox">
+      <p class="ccsl">学会概况</p>
+    </div>
+    <ul>
+      <li class="active"><a href="{{url_for('home.swkx')}}" class="ccsl">学会简介</a></li>
+      <li><a href="{{url_for('home.rules')}}" class="ccsl">学会章程</a></li>
+      <li><a href="#" class="ccsl">学会领导</a></li>
+      <li><a href="{{url_for('home.contactUs')}}" class="ccsl">联系我们</a></li>
+    </ul>
+  </div>
+  <div class="mainRight">
+    <div class="brandnavbox">
+      <div class="con">当前位置：首页》学会概况》学会简介</div>
+    </div>
+    <div class="detailbox">
+      <h1>上海思维科学研究会</h1>
+      <div>
+       <p>上海市思维科学研究会成立于2012年9月，挂靠上海海事大学。学会的宗旨是团结本市思维科学工作者，遵守国家的法律、法规和政策，维护社会道德风尚，努力从事思维科学的理论研究和和实践应用，为思维科学的学术发展、为提高民族的创造能力和智力品质而努力。业务范围是开展思维科学及相关学科的学术研究，研究成果的收集、整理、编撰、制作，以及决策咨询、专业培训、科学普及、技术推广和应用等。
+</p>
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+{% include './home/footBox.html' %}

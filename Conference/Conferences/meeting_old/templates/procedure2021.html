@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="static/css/about.css">
+    <script type="text/javascript" src="static/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="application/javascript" src="static/js/common.js"></script>
+    <script type="text/javascript" src="static/js/jquery.tools.min.js"></script>
+
+</head>
+<body>
+<!--头部-->
+<header id="header">
+    <!--头部的顶部-->
+    <div class="headtp">
+        <div class="container">
+            <div class="fl">
+                <a href="#" onclick="AddFavorite(window.location,document.title)">收藏首页</a>
+                <a href="#">免费注册</a>
+                <a href="#" target="_blank">会员登录</a>
+            </div>
+            <!--搜索框-->
+            <div class="fr">
+                <div class="search">
+                    <form>
+                        <input class="iptxt" type="text" onblur="if(this.value=='')this.value='搜索关键词...';" onfocus="if(this.value=='搜索关键词...')this.value='';" value="搜索关键词..." title="搜索" id="mykey" style="color: rgb(198, 198, 198);">
+                        <a class="subtn" type="button" value="" id="mysub" href="javascript:void(0);"></a>
+                        <script type="text/javascript">
+                            $("#mysub").click(function () {
+                                if ($.trim($("#mykey").val()) == "搜索") {
+                                    alert("请输入关键字！");
+                                    return;
+                                }
+                                location.href = "/aspx/pageabout.aspx?type=search&keyword=" + escape($("#mykey").val()) + "";
+                            });
+                            function AddFavorite(sURL, sTitle) {
+                                sURL = encodeURI(sURL);
+                                try{
+                                    window.external.addFavorite(sURL, sTitle);
+                                }catch(e) {
+                                    try{
+                                        window.sidebar.addPanel(sTitle, sURL, "");
+                                    }catch (e) {
+                                        alert("加入收藏失败，请使用Ctrl+D进行添加,或手动在浏览器里进行设置.");
+                                    }
+                                }
+                            }
+                        </script>
+                    </form>
+                </div>
+
+
+            </div>
+            <!--搜索框end-->
+        </div>
+    </div>
+</header>
+<!--导航-->
+<nav class="nav">
+<div class="container">
+<div class="navbar container">
+    <img src="static/images/logo.jpg" height="51px" align="left">
+    <ul>
+        <li><a href="{{ url_for('index') }}">网站首页</a></li>
+        <li id="m_about"><a href="{{ url_for('about2021') }}">关于协会</a>
+            <div class="navbox abtnav">
+                <div class="navlist">
+                    <span class="navsj"></span>
+                    <div class="navl fl">
+                        <h2>关于协会</h2>
+                        <dl>
+                            <dd class="bd1" onmousemove="showbyid('rig1')"><a href="{{ url_for('about2021') }}">协会简介</a></dd>
+                            <dd class="bd1" onmousemove="showbyid('rig2')"><a href="#">协会章程</a></dd>
+                            <dd class="bd1" onmousemove="showbyid('rig3')"><a href="#">组织结构</a></dd>
+                            <dd class="bd1" ><a href="#">入会须知</a></dd>
+                        </dl>
+                    </div>
+                    <div class="navc fl" id="rig1" style="display:none">
+                        <h3>协会简介</h3>
+                        <p>上海思维科学研究会</p>
+                        <a class="more" href="/about/0_1/">更多》</a>
+                    </div>
+
+                    <div class="navc fl" id="rig2" style="display:none">
+                        <h3>协会章程</h3>
+                        <p></p>
+                        <a class="more" href="/about/0_2/">更多》</a>
+                    </div>
+
+                    <div class="navc fl" id="rig3" style="display:none">
+                        <h3>组织结构</h3>
+                        <!-- <p><img class="navczjg" src="images/zzjg.png" alt="组织结构图" /> -->
+                            <a class="more" href="#">更多》</a>
+                        </p>
+                    </div>
+
+                    <script>
+
+                        function showbyid(bid) {
+                            document.getElementById("rig1").style.display = "none";
+                            document.getElementById("rig2").style.display = "none";
+                            document.getElementById("rig3").style.display = "none";
+                            document.getElementById(bid).style.display = "block";
+                        }
+
+
+                    </script>
+                </div>
+            </div>
+        </li>
+        <li id="m_news"><a href="{{ url_for('information') }}">信息中心</a></li>
+        <li><a href="{{ url_for('contact') }}">联系我们</a></li>
+    </ul>
+
+</div>
+</div>
+</nav>
+
+<!--主体部分-->
+<div class="container clearfix">
+    <!--左侧导航栏-->
+    <div class="ltbox fl bd1">
+        <div class="ltmenu">
+            <div class="tit">
+                <h2>关于会议</h2>
+            </div>
+            <ul class="menulist clearfix">
+                <li class="cli"><a href="{{url_for('about2021')}}"><i></i>会议简介</a></li>
+                <li class="cli"><a href="{{url_for('host2021')}}"><i></i>主讲人</a></li>
+                <li class="current cli"><a href="{{url_for('procedure2021')}}"><i></i>会议议程</a></li>
+                <!--                <li class="cli"><a href=""><i></i></a></li>-->
+                <!--                <li class="cli"><a href=""><i></i>入会须知</a></li>-->
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript" src="static/js/cur.js"></script>
+    <!--右侧内容栏-->
+    <div class="rtbox fr">
+        <div class="rtit">
+            <div class="srtit">
+                <h2 class="fl"><i><img src="static/images/line_red.png"></i>协会简介&nbsp;|&nbsp; Website Building</h2>
+                <p class="fr">当前位置：<a href="#">首页</a> &gt; <a href="{{url_for('about2021')}}">关于协会</a> &gt;<a href="#">协会简介</a> </p>
+            </div>
+        </div>
+        <div class="rtcon abtbg">
+            <div class="rtcontain aboutbox">
+
+                <div class="xhtit">
+                    <h1>中国思维科学会议CCNS2021
+                    </h1><br>
+                    <h1>暨上海市社联学会学术活动月思维科学学术讨论会</h1>
+                    <div class="news_spec">标签：<a href="#" target="_blank"></a>时间：2021-11-20　点击：4329　来源：上海市思维科学研究会 </div>
+                </div>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">时  间：	2021年11月20日</span>
+                    </span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">地  点：	上海交通大学钱学森图书馆B1层会议室</span>
+                    </span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">主  办：	中国思维科学学会（筹）</span>
+                    </span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">承  办：	上海市思维科学研究会，上海交通大学钱学森图书馆</span>
+                    </span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">协  办：	上海海事大学，上海市人工智能学会，湖北省思维科学学会，山西省思维科学学会</span>
+                    </span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">主  旨：	交流思维科学学术成果，纪念钱学森逝世十周年，钱学森提出思维科学40周年。</span>
+                    </span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">议  程：</span>
+                    </span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">8:45-9:00 签到</span>
+                    </span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">主持人：	刘  晋		上海市思维科学研究会秘书长</span>
+                </p>
+
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">9:00     	致辞</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">钱永刚		上海交通大学钱学森图书馆馆长</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">张光鉴		中国思维科学学会筹备组组长</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">王晓峰		上海市思维科学研究会会长</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">9:10		人类大脑如何工作</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">郭爱克		中国科学院院士</span>
+                </p>
+
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">10:45    	茶歇（合影拍照）</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">11:10		思维科学在湖北</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">李德华	华中科技大学教授，中国思维科学学会筹备组副组长 </span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">11:50     学习习主席创新思维论述的体会</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">刘勤跃		渭南市科学思维学会副理事长</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">12:20    	工作午餐 （交大博学楼宾馆二楼品味馆中餐厅）</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">13:30-16:50</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">主持人：	汪  镭		上海市思维科学研究会副会长</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">13:30    	矛盾生成的内积纠缠及其诱导的范畴与Topos — 从Turing问题到大成智慧</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">冯嘉礼		上海海事大学教授，上海市思维科学研究会前会长</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">14:10		关于智能生成机制基本问题的思考：智能、信息与思维</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">王晓峰		上海海事大学教授，上海市思维科学研究会会长</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">14:50		突破人类思维能力的瓶颈口</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">李鸿仪		上海第二工业大学教授</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">15:10		三类思维：可感、可知、可悟三个计量维度</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">邹晓辉     塞尔科技思维科学课题组组长</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">15:30		神经连接逻辑开启科学和技术新境界</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">柳下奕     柳下哲学院院长</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">15:50		如何理解意识，思维停滞，逻辑思维与形象思维产生过程</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">周南海		思维科学独立研究者</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">16:10		思维科学产生的社会历史条件及其当代价值</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">宋振东		山东管理学院</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">16:30		参会代表自由发言</span>
+                </p>
+                <p style="text-indent:2em;">
+                    <span style="font-size:20px;font-family:FangSong_GB2312;">16:50		上海市思维科学研究会理事会会议</span>
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<footer id="footer">
+    <div class="fttool">
+        <div class="container">
+        </div>
+    </div>
+    <div class="ftbt container">
+        <div class="ftbt_left fl">
+            <p>上海思维科学研究会  版权所有</p>
+            <p>地址：上海市浦东新区</p>
+            <p>联系方式：123456</p>
+        </div>
+        <div class="ftbt_right fr">
+            <p>客服QQ：2295956241</p>
+            <p>邮箱：123456@126.com</p>
+        </div>
+        <div class="middle fr"><img src="static/images/weixin.jpg" width="90" height="90"> </div>
+    </div>
+    <div class="copyright container">
+        Copyright © 2021 womengda.cn All rights reserved.&nbsp;&nbsp;&nbsp;沪ICP备15048364号-1&nbsp;&nbsp;&nbsp;技术支持：上海思维科学研究会
+    </div>
+</footer>
+
+</body>
+</html>

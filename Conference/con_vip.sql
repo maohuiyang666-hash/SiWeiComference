@@ -1,0 +1,5 @@
+INSERT INTO [con_vip] ([con_id], [vip_id], [vip_name], [vip_work], [vip_detail], [vip_img]) VALUES (202108, 1, '陈小平', '中国科技大学', '中国科学技术大学计算机科学与技术学院教授、博士生导师、机器人实验室主任、人工智能中心主任，现任机器人世界杯（RobCup）中国委员会主席，中国人工智能学会人工智能伦理道德专委会主任等', 'static/home/images/vip1.png'); GO
+INSERT INTO [con_vip] ([con_id], [vip_id], [vip_name], [vip_work], [vip_detail], [vip_img]) VALUES (202108, 2, '李德华', '华中科技大学', '历任华中科技大学电子工程三系、计算机系、图像识别与人工智能研究所、课题组长、研究室主任、人工智能研究所所长、计算语言研究所所长。', 'static/home/images/vip2.PNG'); GO
+INSERT INTO [con_vip] ([con_id], [vip_id], [vip_name], [vip_work], [vip_detail], [vip_img]) VALUES (202108, 3, '成素梅', '上海社科院', '现任上海社会科学院哲学研究所副所长，研究员。2020年12月，荣获上海市先进工作者荣誉称号。', 'static/home/images/vip3.PNG'); GO
+INSERT INTO [con_vip] ([con_id], [vip_id], [vip_name], [vip_work], [vip_detail], [vip_img]) VALUES (202108, 4, '冯嘉礼', '上海海事大学', '教授、博士生导师。兼任中国人工智能学会理事、中国人工智能学会机器学习专业委员会副主任委员、中国管理科学研究院思维科学研究所学术顾问学术职务。', 'static/home/images/vip4.PNG'); GO
+INSERT INTO [con_vip] ([con_id], [vip_id], [vip_name], [vip_work], [vip_detail], [vip_img]) VALUES (202108, 5, '王晓峰', '上海海事大学', '教授、博士生导师。兼任中国人工智能学会机器学习专业委员会常务委员，中国人工智能学会智能交通专业委员会委员，粗糙集与粒度计算专业委员会委员。', 'static/home/images/vip5.PNG'); GO

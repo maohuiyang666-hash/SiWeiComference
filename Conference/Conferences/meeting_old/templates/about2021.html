@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="static/css/about.css">
+    <script type="text/javascript" src="static/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="application/javascript" src="static/js/common.js"></script>
+    <script type="text/javascript" src="static/js/jquery.tools.min.js"></script>
+
+</head>
+
+<body>
+<!--头部-->
+<header id="header">
+    <!--头部的顶部-->
+    <div class="headtp">
+        <div class="container">
+            <div class="fl">
+                <a href="#" onclick="AddFavorite(window.location,document.title)">收藏首页</a>
+                <a href="#">免费注册</a>
+                <a href="#" target="_blank">会员登录</a>
+            </div>
+            <!--搜索框-->
+            <div class="fr">
+                <div class="search">
+                    <form>
+                        <input class="iptxt" type="text" onblur="if(this.value=='')this.value='搜索关键词...';" onfocus="if(this.value=='搜索关键词...')this.value='';" value="搜索关键词..." title="搜索" id="mykey" style="color: rgb(198, 198, 198);">
+                        <a class="subtn" type="button" value="" id="mysub" href="javascript:void(0);"></a>
+                        <script type="text/javascript">
+                            $("#mysub").click(function () {
+                                if ($.trim($("#mykey").val()) == "搜索") {
+                                    alert("请输入关键字！");
+                                    return;
+                                }
+                                location.href = "/aspx/pageabout.aspx?type=search&keyword=" + escape($("#mykey").val()) + "";
+                            });
+                            function AddFavorite(sURL, sTitle) {
+                                sURL = encodeURI(sURL);
+                                try{
+                                    window.external.addFavorite(sURL, sTitle);
+                                }catch(e) {
+                                    try{
+                                        window.sidebar.addPanel(sTitle, sURL, "");
+                                    }catch (e) {
+                                        alert("加入收藏失败，请使用Ctrl+D进行添加,或手动在浏览器里进行设置.");
+                                    }
+                                }
+                            }
+                        </script>
+                    </form>
+                </div>
+
+
+            </div>
+            <!--搜索框end-->
+        </div>
+    </div>
+</header>
+<!--导航-->
+
+<nav class="nav">
+<div class="container">
+<div class="navbar container">
+    <img src="static/images/logo.jpg" height="51px" align="left">
+    <ul>
+        <li><a href="{{ url_for('index') }}">网站首页</a></li>
+        <li id="m_about"><a href="{{ url_for('about2021') }}">关于协会</a>
+            <div class="navbox abtnav">
+                <div class="navlist">
+                    <span class="navsj"></span>
+                    <div class="navl fl">
+                        <h2>关于协会</h2>
+                        <dl>
+                            <dd class="bd1" onmousemove="showbyid('rig1')"><a href="{{ url_for('about2021') }}">协会简介</a></dd>
+                            <dd class="bd1" onmousemove="showbyid('rig2')"><a href="#">协会章程</a></dd>
+                            <dd class="bd1" onmousemove="showbyid('rig3')"><a href="#">组织结构</a></dd>
+                            <dd class="bd1" ><a href="#">入会须知</a></dd>
+                        </dl>
+                    </div>
+                    <div class="navc fl" id="rig1" style="display:none">
+                        <h3>协会简介</h3>
+                        <p>上海思维科学研究会</p>
+                        <a class="more" href="/about/0_1/">更多》</a>
+                    </div>
+
+                    <div class="navc fl" id="rig2" style="display:none">
+                        <h3>协会章程</h3>
+                        <p></p>
+                        <a class="more" href="/about/0_2/">更多》</a>
+                    </div>
+
+                    <div class="navc fl" id="rig3" style="display:none">
+                        <h3>组织结构</h3>
+                        <!-- <p><img class="navczjg" src="images/zzjg.png" alt="组织结构图" /> -->
+                            <a class="more" href="#">更多》</a>
+                        </p>
+                    </div>
+
+                    <script>
+
+                        function showbyid(bid) {
+                            document.getElementById("rig1").style.display = "none";
+                            document.getElementById("rig2").style.display = "none";
+                            document.getElementById("rig3").style.display = "none";
+                            document.getElementById(bid).style.display = "block";
+                        }
+
+                    </script>
+                </div>
+            </div>
+        </li>
+        <li id="m_news"><a href="{{ url_for('information') }}">信息中心</a></li>
+        <li><a href="{{ url_for('contact') }}">联系我们</a></li>
+    </ul>
+
+</div>
+</div>
+</nav>
+
+<!--主体部分-->
+<div class="container clearfix">
+    <script type="text/javascript" src="static/js/cur.js"></script>
+    <!--右侧内容栏-->
+    <div class="rtbox ">
+                <p class="fr">当前位置：<a href="{{url_for('index')}}">首页</a> &gt; <a>学会公告</a> </p>
+        <div class="rtcon abtbg">
+            <div class="rtcontain aboutbox">
+                <div class="xhtit">
+                    <h1>AI科普进校园 师生共探智能进化之路</h1>
+                </div>
+                <p style="text-indent:2em;line-height: 1.6">
+                    <span style="font-size:15px;font-family:FangSong_GB2312;">2026年5月22日,在上海市社会科学界联合会、上海市思维科学研究会、上海市创造学会人工智能专委会等单位的支持下,“从读懂语言到看懂世界：大模型与具身智能的进化之路”科普讲座在上海市实验学校报告厅顺利举行。作为第25届（2026）上海市社会科学普及活动周专题活动之一，本次讲座特邀东方有线网络有限公司AI创新应用中心高级AI架构师周铭吉担任主讲，吸引了百余名师生现场参与，共同探索人工智能技术的发展脉络与未来趋势。</span>
+                </p>
+                <p style="text-indent:2em;line-height: 1.6">
+                    <span style="font-size:15px;font-family:FangSong_GB2312;">讲座伊始,周铭吉以“为什么电影里的机器人能成为伙伴，而现实中的AI却难以真正完成复杂生活任务”为切入点，通过科幻场景与现实技术的对比，引导同学们思考“智能的本质究竟是什么”这一核心问题。生动的问题设置迅速调动了现场氛围，同学们积极互动、踊跃发言，展现出对人工智能技术的浓厚兴趣。</span>
+                  </p>
+                <!-- 第一张图片 -->
+                <div style="text-align:center;margin:20px 0;">
+                    <img src="{{ url_for('static', filename='images/1.jpg') }}"
+                     alt="讲座现场"
+                     style="max-width:80%;height:auto;">
+                </div>
+                <p style="text-indent:2em;line-height: 1.6">
+                    <span style="font-size:15px;font-family:FangSong_GB2312;">围绕“大模型与具身智能”主题，周铭吉系统介绍了人工智能从语言理解到世界感知的发展路径，重点讲解了大模型、多模态感知、具身智能以及世界模型等前沿方向。他结合“超级文字接龙”“中文房间”等经典案例，以及人形机器人等实际应用场景，将抽象复杂的技术原理转化为通俗易懂的内容，深入浅出地揭示了人工智能从“读懂语言”迈向“看懂世界”的技术演进逻辑。同时，讲座还结合现实应用，引导同学们思考技术发展背后的科学规律与人文价值，进一步增强了学生对人工智能技术的全面认知。</span>
+                  </p>
+                <p style="text-indent:2em;line-height: 1.6">
+                    <span style="font-size:15px;font-family:FangSong_GB2312;">在互动体验环节，周铭吉现场演示腾讯混元3D生成平台，邀请学生通过文字描述或图片输入实时生成三维模型。同学们纷纷提出自己的创意构想，在与AI的实时交互中，直观感受到多模态大模型从“理解”到“创造”的能力跃迁。随着一个个三维模型在屏幕上生成展示，现场不时响起掌声与惊叹声，科技的魅力在沉浸式体验中得到充分展现。</span>
+                  </p>
+                <!-- 第二张图片 -->
+                <div style="text-align:center;margin:20px 0;">
+                    <img src="{{ url_for('static', filename='images/2.jpg') }}"
+                      alt="互动体验"
+                      style="max-width:80%;height:auto;">
+                </div>
+                <p style="text-indent:2em;line-height: 1.6">
+                    <span style="font-size:15px;font-family:FangSong_GB2312;">活动最后，周铭吉勉励同学们在人工智能时代保持好奇心与探索精神，夯实基础知识，勇于实践创新，同时关注科技发展与人文思考的融合。在场教师表示，本次科普活动不仅帮助学生系统了解了人工智能领域的前沿技术与现实应用，也通过互动体验增强了学生对科技创新的兴趣与理解，对于培养青少年的科学素养、创新意识和未来视野具有积极意义。</span>
+                  </p>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<footer id="footer">
+    <div class="fttool">
+        <div class="container">
+        </div>
+    </div>
+    <div class="ftbt container">
+        <div class="ftbt_left fl">
+            <p>上海思维科学研究会  版权所有</p>
+            <p>地址：上海市浦东新区</p>
+            <p>联系方式：123456</p>
+        </div>
+        <div class="ftbt_right fr">
+            <p>客服QQ：2295956241</p>
+            <p>邮箱：123456@126.com</p>
+        </div>
+        <div class="middle fr"><img src="static/images/weixin.jpg" width="90" height="90"> </div>
+    </div>
+    <div class="copyright container">
+        Copyright © 2026 womengda.cn All rights reserved.&nbsp;&nbsp;&nbsp;沪ICP备15048364号-1&nbsp;&nbsp;&nbsp;技术支持：上海思维科学研究会
+    </div>
+</footer>
+
+</body>
+
+</html>

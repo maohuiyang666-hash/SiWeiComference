@@ -1,0 +1,102 @@
+
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+	<meta charset="UTF-8">
+	
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+	<title>登陆</title>
+
+	<link rel="stylesheet" href="static/home/css/login_register_style.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+</head>
+<script>
+
+$(document).ready(function(){
+	
+	$("#login1").click(function(){
+		if($("#username").val().length>0&&$("#password").val().length>0){
+			$.post("{{url_for('home.login')}}",{
+			'username':$("#username").val(),
+			'password':$("#password").val()
+			},
+			function(data,status){
+				if(data!="error" && status=="success"){
+					alert("登陆成功");
+//					window.history.go(-1);
+					window.location.href="{{url_for('home.index')}}";
+				}
+				else if(status=="success"){
+					$("#show_info").text("用户名或密码错误，请重试");
+				}else{
+					$("#show_info").text("网络错误，请重试");
+				}
+			});
+		}else{
+			alert('用户名和密码不能为空');
+		};
+		
+	});
+});
+</script>
+<body>
+
+	<div class="login-banner" style="background: url(static/home/images/login_banner.jpg);"></div><br />
+	<div class="title-box" >用户登陆</div><br />
+	<div class="login-box">
+
+		<div class="box-con tran">
+
+			<div class="login-con f-l">
+				
+				<div id= "show_info" style="font-size: 20px;color:red"></div>
+				<div class="form-group">
+
+					<input type="text" id= "username" placeholder="用户名/邮箱"/>
+
+				</div>
+
+				<div class="form-group">
+
+					<input type="password" id="password" placeholder="密码">
+
+				</div>
+
+				<div class="form-group">
+
+					<button  id='login1'>登录</button>
+
+				</div>
+
+				<div class="from-line"></div>
+
+				<div class="form-group">
+
+					<a href="{{url_for('home.register')}}" id="redirect_register" class="move-signup a-tag tran blue-border">还没有帐号？免费注册</a>
+
+				</div>
+
+				<div class="form-group">
+
+					<a href="{{url_for('home.pwchange')}}" class="move-reset a-tag tran">忘记密码？重置 <i class="iconfont tran">&#xe606;</i></a>
+
+				</div>
+
+			</div>
+
+			<!-- 登录 -->
+
+
+		</div>
+
+	</div>
+
+
+</body>
+
+</html>

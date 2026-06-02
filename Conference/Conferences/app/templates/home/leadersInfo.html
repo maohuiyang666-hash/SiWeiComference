@@ -1,0 +1,40 @@
+{% include './home/TopBox.html' %}
+
+<div class="clear"></div>
+<div class="banner">
+  <div class="b-img">
+      <img src="{{ url_for('static',filename='home/images/2021CCNS.png') }}" width="100%"/>
+      <img src="{{ url_for('static',filename='home/images/2021CCNS2.jpg') }}" width="100%" />
+  </div>
+  <div class="clear"></div>
+  <div class="b-list"> </div>
+</div>
+<div class="clear"></div>
+<div class="mainWarp">
+  <div class="mainLeft">
+    <div class="titbox">
+      <p class="ccsl">协会概况</p>
+    </div>
+    <ul>
+      <li><a href="{{url_for('home.swkx')}}" class="ccsl">协会简介</a></li>
+      <li><a href="{{url_for('home.rules')}}" class="ccsl">协会章程</a></li>
+      <li class="active"><a href="{{url_for('home.leadersInfo')}}" class="ccsl">协会领导</a></li>
+      <li><a href="{{url_for('home.contactUs')}}" class="ccsl">联系我们</a></li>
+    </ul>
+  </div>
+  <div class="mainRight">
+    <div class="brandnavbox">
+      <div class="con">当前位置：首页》协会概况》协会领导</div>
+    </div>
+    <div class="detailbox">
+      <div>
+        {% for leader in leaders %}
+            <p>{{ leader[0]}}</p>
+            <p>{{ leader[3]}}</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+{% include './home/footBox.html' %}

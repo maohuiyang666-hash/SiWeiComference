@@ -1,0 +1,49 @@
+{% include './home/TopBox.html' %}
+
+<div class="clear"></div>
+<!--<div class="banner">-->
+<!--  <div class="b-img">-->
+<!--      <img src="images/banner.jpg" width="100%"/>-->
+<!--      <img src="images/banner.jpg" width="100%" />-->
+<!--  </div>-->
+<!--  <div class="clear"></div>-->
+<!--  <div class="b-list"> </div>-->
+<!--</div>-->
+<div class="clear"></div>
+<div class="mainWarp">
+  <div class="mainLeft">
+    <div class="titbox">
+      <p class="ccsl">会议详情</p>
+    </div>
+    <ul>
+      <li class="active"><a href="{{url_for('home.conference_detail')}}?id={{con_id}}" class="ccsl">会议内容</a></li>
+      <li><a href="{{url_for('home.conference_procedure')}}?id={{con_id}}" class="ccsl">会议议程</a></li>
+     <li><a href="{{url_for('home.conference_vip')}}?id={{con_id}}" class="ccsl" target="_black">主讲嘉宾</a></li>
+    </ul>
+  </div>
+  <div class="mainRight">
+    <div class="brandnavbox">
+      <div class="con">当前位置：首页》学会会议》会议议程</div>
+    </div>
+    <div class="detailbox">
+
+      <h1>{{ title }}</h1>
+      <h1>上海市社联学会学术活动月项目</h1>
+      <div>
+       {% for p in content %}
+          <p>{{p}}</p>
+       {% endfor %}
+
+       <br>
+                <!-- <form method="post" enctype="multipart/form-data">
+                    <input type="file" name="fileupload">
+                    <input type="submit" value="论文投稿" onclick="myFunction()">
+                </form> -->
+
+      </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="clear"></div>
+{% include './home/footBox.html' %}

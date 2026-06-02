@@ -1,0 +1,211 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+	<meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+	<title>变动个人信息</title>
+
+	<link rel="stylesheet" href="static/css/infochange.css">
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+</head>
+<script>
+var username=''
+var change_url="{{url_for('update_data')}}"
+
+var info={
+'username' : "无",
+'name'  : "无",
+'phone'   : "无",
+'title':"无",
+'birthday':"无",
+'organization':"无"
+};
+
+function reloadData(){
+//	alert(info);
+for(var key in info) {
+//	document.getElementById('email').value='564645';
+//	alert(key+",,"+info[key]);
+	document.getElementById(key).value=info[key];
+}
+};
+
+$(document).ready(function(){
+	
+	
+	$.post("{{url_for('infochange')}}",{
+			},
+			function(data,status){
+				if(status=="success"){
+//					alert(data);
+					$("#contain").html(data);
+				}
+				else{
+					alert("失败，请刷新后重试");
+				}
+			});
+	
+//	reloadData();
+
+});
+</script>
+<body >
+
+	<div class="login-banner" style="background: url(home/images/banner.jpg);" ></div><br />
+	<div class="title-box" >用户信息修改</div>
+	<div class="login-box">
+
+		<div class="box-con tran" id="contain"><div class="signup-form"><label for="username">用户名:</label><input type="text" id="username" class="email-mobile" value="chad" disabled="“disabled”"></div>
+			
+	</div><br />
+		<button type="button" id="register" style="width: 200px;" onclick="window.location.reload()">刷新</button>
+		<button type="button" id="register" style="width: 200px;" onclick="window.history.go(-1);" >返回</button>
+	</div>
+
+</body>
+<script>
+
+var verify={
+	verifyType:function(){
+		if($("#member_type").val().length>0){
+			
+			$.post(change_url,{
+				'username':username,
+				'member_type':$("#member_type").val(),
+			},
+			function(data,status){
+				if(data=="success" && status=="success"){
+					alert(data);
+				}
+				else{
+					alert("提交失败，请重试");
+				}
+//				window.location.reload();
+			});
+		}else{
+			alert("输入不能为空");
+		};
+
+	},//修改会员类型
+	
+	verifyTitle:function(_this){
+		if($("#title").val().length>0&&$("#title").val()!=info["title"]){
+			
+			$.post(change_url,{
+				'username':username,
+				'title':$("#title").val(),
+			},
+			function(data,status){
+				if(data=="success" && status=="success"){
+					alert("变动成功");
+				}
+				else{
+					alert(data);
+				}
+//				window.location.reload();
+			});
+		}else{
+			alert("输入不能为空");
+		};
+	},//修改职称
+	
+	
+	verifyOrganization:function(_this){
+
+		if($("#organization").val().length>0){
+			
+			$.post(change_url,{
+				'username':username,
+				'organization':$("#organization").val(),
+			},
+			function(data,status){
+				if(data=="success" && status=="success"){
+					alert("变动成功");
+				}
+				else{
+					alert(data);
+				}
+//				window.location.reload();
+			});
+		}else{
+			alert("输入不能为空");
+		};
+
+	},//修改单位
+	
+	verifyBirthday:function(_this){
+		
+		if($("#birthday").val().length>0){
+			
+			$.post(change_url,{
+				'username':username,
+				'birthday':$("#birthday").val(),
+			},
+			function(data,status){
+				if(data=="success" && status=="success"){
+					alert("变动成功");
+				}
+				else{
+					alert(data);
+				}
+//				window.location.reload();
+			});
+		}else{
+			alert("输入不能为空");
+		};
+
+
+	},//修改生日
+	
+	verifyName:function(_this){
+		
+		if($("#name").val().length>0){
+			
+			$.post(change_url,{
+				'username':username,
+				'name':$("#name").val(),
+			},
+			function(data,status){
+				if(data=="success" && status=="success"){
+					alert("变动成功");
+				}
+				else{
+					alert(data);
+				}
+//				window.location.reload();
+			});
+		}else{
+			alert("输入不能为空");
+		};
+
+
+	},//修改姓名
+
+	verifyPhone:function(_this){
+
+		$.post(change_url,{
+				'username':username,
+				'phone':$("#phone").val(),
+			},
+			function(data,status){
+				if(data=="success" && status=="success"){
+					alert("变动成功");
+				}
+				else{
+					alert(data);
+				}
+//				window.location.reload();
+			});
+
+	},//验证手机号码
+
+}
+
+</script>
+</html>

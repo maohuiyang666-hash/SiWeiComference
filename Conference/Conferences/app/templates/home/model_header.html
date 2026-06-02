@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh">
+    <head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap Min CSS --> 
+		<link rel="stylesheet" href="https://www.jq22.com/jquery/bootstrap-4.2.1.css">
+		<!-- Owl Theme Default Min CSS --> 
+		<link rel="stylesheet" href="{{ url_for('static',filename='home/module_assets/css/owl.theme.default.min.css') }}">
+		<!-- Owl Carousel Min CSS --> 
+		<link rel="stylesheet" href="{{ url_for('static',filename='home/module_assets/css/owl.carousel.min.css') }}">
+		<!-- Animate Min CSS --> 
+		<link rel="stylesheet" href="{{ url_for('static',filename='home/module_assets/css/animate.min.css') }}">
+		<!-- Boxicons Min CSS --> 
+		<link rel="stylesheet" href="{{ url_for('static',filename='home/module_assets/css/boxicons.min.css') }}"> 
+		<!-- Magnific Popup Min CSS --> 
+		<link rel="stylesheet" href="{{ url_for('static',filename='home/module_assets/css/magnific-popup.min.css') }}"> 
+		<!-- Flaticon CSS --> 
+		<link rel="stylesheet" href="{{ url_for('static',filename='home/module_assets/css/flaticon.css') }}">
+		<!-- Meanmenu Min CSS -->
+		<link rel="stylesheet" href="{{ url_for('static',filename='home/module_assets/css/meanmenu.min.css') }}">
+		<!-- Nice Select Min CSS -->
+		<link rel="stylesheet" href="{{ url_for('static',filename='home/module_assets/css/nice-select.min.css') }}">
+		<!-- Odometer Min CSS-->
+		<link rel="stylesheet" href="{{ url_for('static',filename='home/module_assets/css/odometer.min.css') }}">
+		<!-- Date Picker CSS-->
+		<link rel="stylesheet" href="{{ url_for('static',filename='home/module_assets/css/date-picker.min.css') }}">
+		<!-- Muli Fonts Min CSS-->
+		<link rel="stylesheet" href="{{ url_for('static',filename='home/module_assets/css/muli-fonts.css') }}">
+		<!-- Style CSS -->
+		<link rel="stylesheet" href="{{ url_for('static',filename='home/module_assets/css/style.css') }}">
+		<!-- Responsive CSS -->
+		<link rel="stylesheet" href="{{ url_for('static',filename='home/module_assets/css/responsive.css') }}">
+		
+		<!-- Favicon -->
+		<link rel="icon" type="image/png" href="{{ url_for('static',filename='home/module_assets/images/favicon.png') }}">
+		<!-- Title -->
+		<title>上海市思维科学研究会</title>
+    </head>
+
+    <body>
+		<!-- Start Preloader Area -->
+		<div class="preloader">
+			<div class="lds-ripple">
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+		<!-- End Preloader Area -->
+		
+		<!-- Start Header Area -->
+		<header class="header-area">
+			
+			<!-- Start Navbar Area -->
+			<div class="navbar-area">
+				<div class="mobile-nav">
+					<div class="container">
+						<div class="mobile-menu">
+							<div class="logo">
+								<a href="{{ url_for('home.index') }}">
+									<img src="{{ url_for('static',filename='home/module_assets/images/logo.jpg') }}" alt="logo">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+				<div class="desktop-nav">
+					<div class="container">
+						<nav class="navbar navbar-expand-md navbar-light">
+							<a class="navbar-brand" href="{{ url_for('home.index') }}">
+								<img src="{{ url_for('static',filename='home/module_assets/images/logo.jpg') }}" alt="logo">
+							</a>
+	
+							<div class="collapse navbar-collapse mean-menu">
+								<ul class="navbar-nav m-auto">
+									<li class="nav-item">
+										<a href="{{ url_for('home.model_test') }}" class="nav-link active">
+											主页
+											<i class="bx bx-chevron-down"></i>
+										</a>
+									</li>
+
+									<li class="nav-item">
+										<a href="#" class="nav-link">
+											最新的
+											<i class="bx bx-chevron-down"></i>
+										</a>
+									</li>
+
+									<li class="nav-item">
+										<a href="#" class="nav-link">
+											数据集
+											<i class="bx bx-chevron-down"></i>
+										</a>
+									</li>
+
+									<li class="nav-item">
+										<a href="#" class="nav-link">
+											更多
+											<i class="bx bx-chevron-down"></i>
+										</a>
+	
+										<ul class="dropdown-menu">
+											<li class="nav-item">
+												<a href="#" class="nav-link">关于我们</a>
+											</li>
+											<li class="nav-item">
+												<a href="#" class="nav-link">联系我们</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+								
+								<div class="others-option">
+									<div class="get-quote">
+										<a href="#" class="default-btn">
+											提交您的论文
+										</a>
+									</div>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
+	
+				<div class="others-option-for-responsive">
+					<div class="container">
+						<div class="dot-menu">
+							<div class="inner">
+								<div class="circle circle-one"></div>
+								<div class="circle circle-two"></div>
+								<div class="circle circle-three"></div>
+							</div>
+						</div>
+						
+						<div class="container">
+							<div class="option-inner">
+								<div class="others-option justify-content-center d-flex align-items-center">
+									<div class="get-quote">
+										<a href="#" class="default-btn">
+											提交您的论文
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Navbar Area -->
+		</header>
+		<!-- End Header Area -->

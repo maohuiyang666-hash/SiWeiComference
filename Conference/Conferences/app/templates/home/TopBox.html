@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="renderer" content="webkit"/>
+<meta name="force-rendering" content="webkit"/>
+<title></title>
+<link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='home/css/style.css') }}" />
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/jquery-1.8.2.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='home/js/banner.js') }}"></script>
+<script src="{{ url_for('static',filename='home/js/jquery.img_silder.js') }}"></script>
+<script>
+function deleteuser(){
+ 	$.post("{{url_for('home.deletesession')}}",{
+        },
+        function(data,status){
+          $(window).attr('location',"{{url_for('home.index')}}");
+        });
+};
+
+
+$(document).ready(function(){
+    $.post("{{url_for('userget')}}",{
+        },
+        function(data,status){
+            if(data!="" && status=="success"){
+                $("#content").html('<div class="r"><a href="#">欢迎你&nbsp;&nbsp;'+data+'</a>&nbsp;&nbsp;<a onclick="deleteuser(this)">退出登录</a></div>');
+            }
+        });
+});
+
+
+$(function(){
+    $('#silder').imgSilder({
+		s_width:346, //容器宽度
+		s_height:360, //容器高度
+		is_showTit:true, // 是否显示图片标题 false :不显示，true :显示
+		s_times:3000, //设置滚动时间
+	});
+});
+
+function deleteTc(){
+	var del=document.getElementById("tcbox_box");
+	del.style.display="none";
+}
+function showBox(){
+	var show=document.getElementById("tcbox_box");
+	show.style.display="block";
+}
+function myFunction() {
+  alert("文件上传成功");
+}
+</script>
+</head>
+
+<body>
+<div class="topBox">
+  <div class="l"><p class="ccsl">欢迎来到上海市思维科学研究会官网</p></div>
+  <div id="content">
+    <div class="r"><a href="{{url_for('home.register')}}">注册&nbsp; &nbsp; </a></div>
+    <div class="r"><a href="{{url_for('home.login')}}">登录&nbsp; &nbsp;</a></div>
+  </div>
+</div>
+<div class="clear"></div>
+<div class="headerBox">
+  <div class="logo">
+    <a href="{{url_for('home.index')}}"><img src="{{ url_for('static',filename='home/images/logo.jpg') }}" /></a>
+  </div>
+  <div class="nav">
+    <ul>
+      <li>
+        <div class="navOne"><a href="{{url_for('home.index')}}">学会首页</a></div>
+      </li>
+      <li>
+        <div class="navOne"><a href="{{url_for('home.swkx')}}">学会概况</a></div>
+        <div class="navTwo">
+          <a href="{{url_for('home.swkx')}}">学会简介</a> 
+          <a href="{{url_for('home.rules')}}">学会章程</a>
+          <a href="#">学会领导</a>
+          <a href="{{url_for('home.contactUs')}}">联系我们</a>
+        </div>
+      </li>
+      <li>
+        <div class="navOne"><a href="{{url_for('home.model_test')}}">模型评测</a></div>
+      </li>
+      <li>
+        <div class="navOne"><a href="{{url_for('home.conference', page = 1)}}">学会会议</a></div>
+      </li>
+      <li>
+        <div class="navOne"><a href="#">会员服务</a></div>
+        <div class="navTwo">
+          <a href="#">会员服务</a> 
+          <a href="#">入会流程</a>
+          <a href="#">入会申请</a>
+          <a href="#">常务理事单位</a>
+          <a href="#">理事单位</a>
+          <a href="#">会员单位</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

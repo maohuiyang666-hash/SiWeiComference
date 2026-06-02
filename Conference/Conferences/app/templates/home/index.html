@@ -1,0 +1,219 @@
+﻿{% include './home/TopBox.html' %}
+<div class="clear"></div>
+<div class="banner">
+  <div class="b-img">
+      <a href="{{ url_for('home.conference_detail') }}?id=202108" class="ccsl"><img src="{{ url_for('static',filename='home/images/2021.PNG') }}" width="100%"/></a>
+      <!-- <img src="{{ url_for('static',filename='home/images/2021.PNG') }}" width="100%" /> -->
+  </div>
+  <div class="clear"></div>
+  <div class="b-list"> </div>
+</div>
+<div class="clear"></div>
+<div class="part1">
+  <div class="part1_1">
+    <div class="contitbox">
+      <p class="ccsl">行业快讯</p>
+      <a href="#">更多</a>
+    </div>
+    <div class="silder" id="silder" >
+      <ul class="silder_list" id="silder_list">
+        <li> <img src="{{ url_for('static',filename='home/images/1.JPG') }}"  border="0" alt="上海市思维科学研究会"> </li>
+        <li> <img src="{{ url_for('static',filename='home/images/2.JPG') }}"  border="0" alt="上海市思维科学研究会"> </li>
+        <li> <img src="{{ url_for('static',filename='home/images/3.JPG') }}"  border="0" alt="上海市思维科学研究会"> </li>
+
+      </ul>
+    </div>
+  </div>
+  <div class="part1_2">
+    <div class="contitbox">
+      <p class="ccsl">学会公告</p>
+{#      <a href="{{url_for('home.notice_list')}}">更多</a>#}
+        <a href="#">更多</a>
+    </div>
+    <div class="newsOne">
+      <a href="#" class="tit ccsl">上海思维科学研究2021年会</a>
+      <div class="sub">上海思维科学研究 2021 年会由中国思维科学学会筹备组指导，上海市思维科学研究会，上海交通大学钱学森图书馆，上海市人工智能学会联合主办，山西省思维科学学会，湖北省思维科学学会协办...</div>
+      <a href="{{ url_for('home.conference_detail') }}?id=202108" class="more">查看详情</a>
+    </div>
+    <ul class="newsList">
+{#     notice#}
+      {% for notice in notices %}
+      <li><a href="{{ url_for('home.notice_detail') }}?id={{ notice[0] }}" class="ccsl">{{ notice[1]}}</a><span>{{notice[3]}}</span></li>
+      {% endfor %}
+      <!-- <li><a href="detail.html" class="ccsl">关于2020年CCNS会议的通知</a><span>05-21</span></li>
+      <li><a href="detail.html" class="ccsl">关于2021年中国科学思维会议的通知</a><span>05-21</span></li>
+      <li><a href="detail.html" class="ccsl">关于2019年CCNS会议的通知</a><span>05-21</span></li>
+      <li><a href="detail.html" class="ccsl">关于2018年CCNS会议的通知</a><span>05-21</span></li> -->
+    </ul>
+  </div>
+<!--  <div class="part1_3">-->
+<!--    <div class="contitbox">-->
+<!--      <p class="ccsl">证书查询</p>-->
+<!--      <a href="list.html">更多</a>-->
+<!--    </div>-->
+<!--    <div class="typebox">-->
+<!--      <ul>-->
+<!--        <li class="active"><p class="ccsl">学员证书查询</p></li>-->
+<!--        <li><p class="ccsl">教师认证查询</p></li>-->
+<!--        <li><p class="ccsl">机构证书查询</p></li>-->
+<!--      </ul>-->
+<!--    </div>-->
+    <div class="fromBox">
+<!--      <div class="inputbox">-->
+<!--        <label><span>*</span>证书类型</label>-->
+<!--        <select name="">-->
+<!--          <option>请选择证书类型</option>-->
+<!--          <option>证书类型1</option>-->
+<!--          <option>证书类型2</option>-->
+<!--        </select>-->
+<!--      </div>-->
+<!--      <div class="inputbox">-->
+<!--        <label><span>*</span>身份证号</label>-->
+<!--        <input name="" type="text" placeholder="请输入身份证号"/>-->
+<!--      </div>-->
+<!--      <div class="inputbox">-->
+<!--        <label><span>*</span>姓名</label>-->
+<!--        <input name="" type="text"  placeholder="请输入姓名"/>-->
+<!--      </div>-->
+<!--      <div class="inputbox">-->
+<!--        <label><span>*</span>手机号</label>-->
+<!--        <input name="" type="text"  placeholder="请输入手机号"/>-->
+<!--      </div>-->
+<!--      <div class="inputbox">-->
+<!--        <label><span>*</span>验证码</label>-->
+<!--        <img src="images/yzm.jpg" class="yzmimg"/>-->
+<!--        <input name="" type="text"  placeholder="请输入验证码" class="yzm"/>-->
+<!--      </div>-->
+<!--      <div class="btn">-->
+<!--        <input name="" type="button" value="一键查询"  onClick="showBox()"/>-->
+<!--      </div>-->
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="clear"></div>
+<!--<div class="adBox">-->
+<!--  <img src="images/ad1.jpg" />-->
+<!--</div>-->
+<div class="clear"></div>
+<div class="part2">
+  <div class="part2_1">
+    <div class="contitbox">
+      <p class="ccsl">学会简介</p>
+      <a href="{{url_for('home.swkx')}}">更多</a>
+    </div>
+    <div class="conbox">
+      <img src="{{ url_for('static',filename='home/images/2.png') }}" />
+      <div class="con">
+        <p>上海市思维科学研究会成立于2012年9月，挂靠上海海事大学。学会的宗旨是团结本市思维科学工作者，遵守国家的法律、法规和政策，维护社会道德风尚，努力从事思维科学的理论研究和和实践应用，为思维科学的学术发展、为提高民族的创造能力和智力品质而努力。业务范围是开展思维科学及相关学科的学术研究，研究成果的收集、整理、编撰、制作，以及决策咨询、专业培训、科学普及、技术推广和应用等。
+        </p>
+      </div>
+    </div>
+  </div>
+<!--  <div class="part2_2">-->
+<!--    <div class="contitbox">-->
+<!--      <p class="ccsl">培训服务</p>-->
+<!--      <a href="list.html">更多</a>-->
+<!--    </div>-->
+<!--    <ul class="newsList">-->
+<!--      <li><a href="detail.html" class="ccsl">第十八届中国教育改革论坛</a><span>05-21</span></li>-->
+<!--      <li><a href="detail.html" class="ccsl">第三次全国高校网络文化建设工作</a><span>05-21</span></li>-->
+<!--      <li><a href="detail.html" class="ccsl">教育部再度回应校园性骚扰：坚持零容忍、...</a><span>05-21</span></li>-->
+<!--      <li><a href="detail.html" class="ccsl">第十八届中国教育改革论坛</a><span>05-21</span></li>-->
+<!--      <li><a href="detail.html" class="ccsl">第三次全国高校网络文化建设工作</a><span>05-21</span></li>-->
+<!--      <li><a href="detail.html" class="ccsl">教育部再度回应校园性骚扰：</a><span>05-21</span></li>-->
+<!--    </ul>-->
+<!--  </div>-->
+  <div class="clear"></div>
+</div>
+<div class="clear"></div>
+<!--<div class="adBox">-->
+<!--  <img src="images/ad2.jpg" />-->
+<!--</div>-->
+<div class="clear"></div>
+<div class="part3">
+  <div class="part3_1">
+    <div class="contitbox">
+      <p class="ccsl">历年会议</p>
+      <a href="{{url_for('home.conference', page = 1)}}">更多</a>
+    </div>
+    <div class="p3img">
+      <img src="{{ url_for('static',filename='home/images/activity1.jpg') }}" />
+    </div>
+    <ul class="newsList">
+{#     conference#}
+      {% for con in cons %}
+      <li><a href="{{ url_for('home.conference_detail') }}?id={{ con[0] }}" class="ccsl">{{ con[1]}}</a><span>{{con[4]}}</span></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="part3_2">
+    <div class="contitbox">
+      <p class="ccsl">会议动态</p>
+      <a href="{{url_for('home.conference', page = 1)}}">更多</a>
+    </div>
+    <div class="p3img">
+      <img src="{{ url_for('static',filename='home/images/activity2.jpg') }}" />
+    </div>
+    <ul class="newsList">
+{#     conference#}
+      {% for con in cons %}
+      <li><a href="{{ url_for('home.conference_detail') }}?id={{ con[0] }}" class="ccsl">{{ con[1]}}</a><span>{{con[4]}}</span></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="part3_3">
+    <div class="contitbox">
+      <p class="ccsl">活动照片</p>
+      <a href="{{url_for('home.conference', page = 1)}}">更多</a>
+    </div>
+    <div class="p3img">
+      <img src="{{ url_for('static',filename='home/images/activity3.jpg') }}" />
+    </div>
+    <ul class="newsList">
+{#     conference#}
+      {% for con in cons %}
+      <li><a href="{{ url_for('home.conference_detail') }}?id={{ con[0] }}" class="ccsl">{{ con[1]}}</a><span>{{con[4]}}</span></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="clear"></div>
+</div>
+<div class="clear"></div>
+<!--<div class="adBox">-->
+<!--  <img src="images/ad3.jpg" />-->
+<!--</div>-->
+<div class="clear"></div>
+<div class="part4">
+<!--  <div class="contitbox">-->
+<!--    <p class="ccsl">会员单位</p>-->
+<!--    <a href="list.html">更多</a>-->
+<!--  </div>-->
+<!--  <ul>-->
+<!--    <li><a href="detail.html"><img src="images/6.jpg" /></a></li>-->
+<!--    <li><a href="detail.html"><img src="images/7.jpg" /></a></li>-->
+<!--    <li><a href="detail.html"><img src="images/8.jpg" /></a></li>-->
+<!--    <li><a href="detail.html"><img src="images/9.jpg" /></a></li>-->
+<!--    <li><a href="detail.html"><img src="images/10.jpg" /></a></li>-->
+<!--  </ul>-->
+</div>
+<div class="clear"></div>
+<div class="linkBox">
+<!--  <div class="titbox">-->
+<!--    <p class="ccsl">友情链接<span>/LINK</span></p>-->
+<!--  </div>-->
+<!--  <div class="linkcon">-->
+<!--    <a href="">北京教育协会</a>-->
+<!--    <a href="">天津教育协会</a>-->
+<!--    <a href="">河北教育协会</a>-->
+<!--    <a href="">山东教育协会</a>-->
+<!--    <a href="">山西教育协会</a>-->
+<!--    <a href="">陕西教育协会</a>-->
+<!--    <a href="">河南教育协会</a>-->
+<!--    <a href="">上海教育协会</a>-->
+<!--    <a href="">重庆教育协会</a>-->
+<!--    <a href="">四川教育协会</a>-->
+<!--    <a href="">云南教育协会</a>-->
+<!--  </div>-->
+</div>
+{% include './home/footBox.html' %}

@@ -1,0 +1,471 @@
+
+<!doctype html>
+
+<html lang="en">
+
+<head>
+
+	<meta charset="UTF-8">
+
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+	<title>注册</title>
+
+	<link rel="stylesheet" href="static/home/css/pwchange.css">
+	<link rel="stylesheet" href="static/home/css/login_register_style.css">
+
+	<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/lib/jquery.js"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+
+
+	<script src="static/js/jquery.js"></script>
+
+</head>
+<script>
+var check_exist_url="{{url_for('home.exist_check')}}";
+var login_url="{{url_for('home.login')}}";
+var register_url="{{url_for('home.register')}}";
+var _email=0;
+var _name=0;
+var _password=0;
+var _verifycode=0;
+
+var code;
+var validateReg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+function createCode() {  //函数体
+    code = "";
+    var codeLength = 4; //验证码的长度
+    var checkCode = document.getElementById("checkCode");
+    
+    var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+    'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //所有候选组成验证码的字符，当然也可以用中文的
+    for (var i = 0; i < codeLength; i++)
+    {
+        var charNum = Math.floor(Math.random() * 52);//设置随机产生
+        code += codeChars[charNum];
+    }
+    if (checkCode)
+    {
+        checkCode.className = "code";
+        checkCode.innerHTML = code;
+    }
+}  
+
+$(document).ready(function(){
+	$("#register").click(function(){
+		if($("#username").val().length!=0&&$("#password1").val().length!=0&&$("#password2").val()==$("#password1").val()
+		&&validateReg.test($("#email").val())&&$("#verifycode").val().toUpperCase()==code.toUpperCase()){
+			$.post("{{url_for('home.register')}}",{
+				'username':$("#username").val(),
+				'password':$("#password1").val(),
+				'email':$("#email").val(),
+			},
+			function(data,status){
+				if(data=="success" && status=="success"){
+					alert("注册成功");
+					$(window).attr('location',login_url);
+				}
+				else{
+					alert(data);
+					$(window).attr('location', register_url);
+					
+				}
+			});
+		}else{
+			alert("信息不正确，注册失败");
+		};
+	});
+});
+
+function sendcode(){
+    let count = 60;
+
+	if(!validateReg.test($("#email").val())){
+		alert('邮箱格式不正确');
+		return -1;
+	}
+    $.post("{{url_for('home.verifycode')}}",{
+				'email':$("#email").val(),
+				'state':'send'
+			},function(data,status){
+				if(data!="success" || status!="success"){
+					alert(data);
+					return -1;
+				}
+			});
+    const countDown = setInterval(() => {
+      if (count === 0) {
+       $('#codebutton').text('重新发送').removeAttr('disabled');
+       $('#codebutton').css({
+//      background: '#ff9400',
+//      color: '#fff',
+       });
+       clearInterval(countDown);
+      } else {
+       $('#codebutton').attr('disabled', true);
+       $('#codebutton').css({
+        background: '#d8d8d8',
+        color: '#707070',
+       });
+       $('#codebutton').text(count+"秒后可重新获取");
+      }
+      count--;
+     }, 1000);
+ }
+
+
+
+
+
+</script>
+<body onload="createCode()">
+
+	<div class="login-banner" style="background: url(static/home/images/login_banner.jpg);" ></div><br />
+	<div class="title-box" >用户注册</div>
+	<div class="login-box">
+
+		<div class="box-con tran">
+
+			<div class="signup f-l">
+				
+				<div class="form-group">
+					<div class="signup-form">
+					
+						<input type="text" id="email" placeholder="邮箱" class="email-mobile" onblur="verify.verifyEmail(this)">
+					</div>
+					
+					
+
+					<span class="error-notic">邮箱格式不正确或已注册</span>
+
+				</div>
+
+				<div class="signup-email">
+
+					<div class="form-group">
+						
+						<input type="text" id="username" placeholder="用户名" onblur="verify.verifyName(this)" required>
+						
+						<span class="error-notic">用户名已被注册,请重新输入</span>
+					</div>
+
+					<div class="form-group">
+
+						<input type="password" id="password1" placeholder="密码（字母、数字，至少6位）" onblur="verify.PasswordLenght(this)" required>
+
+						<span class="error-notic">密码长度不够</span>
+
+					</div>
+					
+					<div class="form-group">
+
+						<input type="password" id="password2" placeholder="请再次输入密码" onblur="verify.PasswordSame(this)" required>
+
+						<span class="error-notic">两次密码不一样</span>
+
+					</div>
+
+					<div class="form-group">
+					<div class="signup-form">
+						<span>验证码</span>
+						<input type="text" id="verifycodemail" style="width: 180px;" placeholder="请输入邮箱验证码"  class="email-mobile" required>
+						<a class="in_box" id="codebutton"  style="display:inline;" onclick="sendcode(this)">获取验证码</a>
+					</div>
+					<span class="error-notic">验证码错误，请重新获取</span>
+			</div>
+
+					
+<!--					<div class="form-group">-->
+<!--						-->
+<!--						<input type="password" id="verifycode" placeholder="请输入验证码" onblur="verify.PasswordCode(this)" required>-->
+<!--&lt;!&ndash;						<br /><br />&ndash;&gt;-->
+<!--						<span class="error-notic">验证码错误，请重新输入</span>-->
+<!--						<br /><br />-->
+<!--						<span >验证码：</span>-->
+<!--						<span class="code" id="checkCode" onclick="createCode()" ></span>&nbsp;&nbsp;<a class="yz" style="color: blue;" href="#" onclick="createCode()">看不清换一张</a>-->
+
+<!--					</div>-->
+					<br />
+					<div class="form-group">
+
+						<button type="button" id="register" class="tran pr">
+
+							<a href="javascript:;" class="tran">注册</a>
+
+						</button>
+
+					</div>
+
+					<p class="view-clause">点击注册，即同意我们的 <a href="#">用户隐私条款</a></p>
+
+				</div><!-- 邮箱注册 -->
+
+				
+
+				<div class="from-line"></div>
+
+				<div class="form-group">
+
+					<a href="{{url_for('home.login')}}" class="move-login a-tag tran blue-border">已有帐号？登录<i class="iconfont tran">&#xe606;</i></a>
+
+				</div>
+
+	
+
+			</div>
+
+			<!-- 注册 -->
+
+		</div>
+
+	</div>
+
+
+	<script>
+
+		var _handle='';//储存电话是否填写正确
+		
+
+		$(function(){
+
+			$(".signup-form input").on("focus",function(){
+
+				$(this).parent().addClass("border");
+
+			});
+
+			$(".signup-form input").on("blur",function(){
+
+				$(this).parent().removeClass("border");
+
+			})
+
+			//注册方式切换
+
+			
+			var _boxCon=$(".box-con");
+
+			$(".move-login").on("click",function(){
+
+				$(_boxCon).css({
+
+					'marginLeft':0
+
+				})
+
+			});
+
+			$(".move-signup").on("click",function(){
+
+				$(_boxCon).css({
+
+					'marginLeft':-320
+
+				})
+
+			});
+
+			$(".move-other").on("click",function(){
+
+				$(_boxCon).css({
+
+					'marginLeft':-640
+
+				})
+
+			});
+
+			$(".move-reset").on("click",function(){
+
+				$(_boxCon).css({
+
+					'marginLeft':-960
+
+				})
+
+			});
+
+			$("body").on("click",".move-addinf",function(){
+
+				$(_boxCon).css({
+
+					'marginLeft':-1280
+
+				})
+
+			});
+
+
+
+			var messageVerify=function (){
+
+				$(".get-message").on("click",function(){
+
+					if(_handle){
+
+						$("#message-inf").fadeIn(100)
+
+						$(this).html('<a href="javascript:;">下一步</a><img class="loading" src="images/loading.gif">').addClass("move-addinf");
+
+					}
+
+				});
+
+			}();
+
+		});
+
+		
+
+		//表单验证
+
+		function showNotic(_this){
+
+			$(_this).parents(".form-group").find(".error-notic").fadeIn(100);
+
+            $(_this).focus();
+
+		}//错误提示显示
+
+		function hideNotic(_this){
+
+			$(_this).parents(".form-group").find(".error-notic").fadeOut(100);
+
+		}//错误提示隐藏
+
+		var verify={
+
+			verifyEmail:function(_this){
+
+				var validateReg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+				var _value=$(_this).val();
+
+            	if(!validateReg.test(_value)){
+
+            		showNotic(_this);
+            		_email=0;
+
+            	}else{
+					
+					$.post(check_exist_url,{
+					'email':$(_this).val(),
+				},
+				function(data,status){
+					if(data=="success" && status=="success"){
+						hideNotic(_this);
+						_email=1;
+					}
+					else{
+						showNotic(_this);
+						_email=0;
+					}
+				});
+					
+
+            	}
+
+			},//验证邮箱
+			
+			PasswordCode:function(_this){
+				
+				if(document.getElementById("verifycode").value.toUpperCase()!=code.toUpperCase()){ //toUpperCase不区分大小写
+		            showNotic(_this);
+					_email=0;
+		            createCode();//读取文件
+		          }                  
+			      else{
+			            hideNotic(_this);
+			            _verifycode=1;
+			        }
+
+			},//验证码
+			
+			verifyName:function(_this){
+				
+				$.post(check_exist_url,{
+					'username':$(_this).val(),
+				},
+				function(data,status){
+					if(data=="success" && status=="success"){
+						hideNotic(_this);
+						_name=1;
+					}
+					else{
+						showNotic(_this);
+						_name=0;
+					}
+				});
+
+			},//验证用户名
+
+			verifyMobile:function(_this){
+
+				var validateReg = /^((\+?86)|(\(\+86\)))?1\d{10}$/;
+
+				var _value=$(_this).val();
+
+            	if(!validateReg.test(_value)){
+
+            		showNotic(_this);
+
+            		_handle=false;
+
+            	}else{
+
+            		hideNotic(_this);
+
+            		_handle=true;
+
+            	}
+
+            	return _handle
+
+			},//验证手机号码
+
+			PasswordLenght:function(_this){
+
+				var _length=$(_this).val().length;
+
+				if(_length<6){
+
+					showNotic(_this)
+
+				}else{
+
+            		hideNotic(_this)
+
+            	}
+
+			},//验证设置密码长度
+			
+			PasswordSame:function(_this){
+
+				var _length=$(_this).val().length;
+
+				if($(_this).val()!=$("#password1").val()){
+
+					showNotic(_this);
+					_password=0;
+
+				}else{
+
+            		hideNotic(_this);
+            		_password=1;
+
+            	}
+
+			},//验证两次密码是否一样
+
+			
+		}
+
+	</script>
+
+	
+
+</body>
+
+</html>

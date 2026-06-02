@@ -1,0 +1,59 @@
+{% include './home/TopBox.html' %}
+
+<div class="clear"></div>
+<div class="banner">
+  <div class="b-img">
+      <img src="images/banner.jpg" width="100%"/>
+      <img src="images/banner.jpg" width="100%" />
+  </div>
+  <div class="clear"></div>
+  <div class="b-list"> </div>
+</div>
+<div class="clear"></div>
+<div class="mainWarp">
+  <div class="mainLeft">
+    <div class="titbox">
+      <p class="ccsl">协会概况</p>
+    </div>
+    <ul>
+      <li class="active"><a href="list.html" class="ccsl">协会简介</a></li>
+      <li><a href="list.html" class="ccsl">协会章程</a></li>
+{#      <li><a href="list.html" class="ccsl">领导寄语</a></li>#}
+      <li><a href="list.html" class="ccsl">协会领导</a></li>
+{#      <li><a href="list.html" class="ccsl">组织架构</a></li>#}
+      <li><a href="list.html" class="ccsl">联系我们</a></li>
+    </ul>
+  </div>
+  <div class="mainRight">
+    <div class="brandnavbox">
+      <div class="con">当前位置：首页》协会概况》协会简介</div>
+    </div>
+    <div class="detailbox">
+      <h1>中国思维科学会议</h1>
+      <div>
+       <p>第二届中国思维科学会议（CCNS2021）由中国思维科学学会筹备组主办，上海市思维科学研究会，上海交通大学钱学森图书馆承办，上海市人工智能学会，山西省思维科学学会，湖北省思维科学学会协办。该系列会议目标为推动中国思维科学研究发展，是我国思维科学界最主要的学术活动。会议将为思维科学研究领域的学者交流最新研究成果、进行广泛的学术讨论提供便利，并将邀请国内思维科学与智能科学领域的顶级学者做精彩报告。
+</p>
+      </div>
+          <br>
+         <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <p>   {{ message }} <p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+         <br>
+                <form method="post" enctype="multipart/form-data">
+                    <input type="file" name="fileupload">
+                    <input type="submit" value="论文投稿" onclick="myFunction()">
+                </form>
+
+         </div>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+{% include './home/footBox.html' %}
